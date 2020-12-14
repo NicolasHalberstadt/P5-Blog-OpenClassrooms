@@ -1,0 +1,16 @@
+{
+    "name": "nicolashalberstadt/p5-blog-open-classrooms",
+    "description": "Blog project as MVC for Project number 5 of OpenClassrooms path \"PHP/Symfony application delevoper\"",
+    "authors": [
+        {
+            "name": "Nicolas Halberstadt",
+            "email": "halberstadtnicolas@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}
