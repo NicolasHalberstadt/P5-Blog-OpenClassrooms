@@ -6,6 +6,8 @@
 
 namespace app\core;
 
+use app\core\exceptions\NotFoundException;
+
 /**
  * Class Router
  *
@@ -14,33 +16,54 @@ namespace app\core;
  */
 class Router
 {
+    public string $title;
     public Request $request;
+    public Response $response;
     protected array $routes = [];
 
     /**
      * Router constructor.
      * @param Request $request
+     * @param Response $response
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
-
 
     public function get($path, $callback)
     {
         $this->routes['get'][$path] = $callback;
     }
 
+    public function post($path, $callback)
+    {
+        $this->routes['post'][$path] = $callback;
+    }
+
     public function resolve()
     {
         $path = $this->request->getPath();
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
         if ($callback === false) {
-            echo "Not found";
-            exit;
+            throw new NotFoundException();
         }
-        echo call_user_func($callback);
+        if (is_string($callback)) {
+            return Application::$app->view->renderView($callback);
+        }
+        if (is_array($callback)) {
+            /** @var Controller $controller */
+            $controller = new $callback[0]();
+            Application::$app->controller = $controller;
+            $controller->action = $callback[1];
+            $callback[0] = $controller;
+            foreach ($controller->getMiddlewares() as $middleware) {
+                $middleware->execute();
+            }
+        }
+        return call_user_func($callback, $this->request, $this->response);
     }
+
 }
