@@ -6,7 +6,7 @@
 
 namespace app\models;
 
-use app\core\Model;
+use nicolashalberstadt\phpmvc\Model;
 
 /**
  * Class ContactForm

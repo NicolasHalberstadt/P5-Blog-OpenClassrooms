@@ -4,7 +4,7 @@
 * Time: 10:25
 */
 
-use app\core\Application;
+use nicolashalberstadt\phpmvc\Application;
 
 ?>
 <!doctype html>

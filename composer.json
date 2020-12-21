@@ -13,6 +13,7 @@
         }
     },
     "require": {
-        "vlucas/phpdotenv": "^5.2"
+        "vlucas/phpdotenv": "^5.2",
+        "nicolashalberstadt/php-mvc-core": "^v1.0.3"
     }
 }

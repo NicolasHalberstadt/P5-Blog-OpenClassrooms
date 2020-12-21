@@ -6,9 +6,9 @@
 
 namespace app\models;
 
-use app\core\DbModel;
-use app\core\Model;
-use app\core\UserModel;
+use nicolashalberstadt\phpmvc\DbModel;
+use nicolashalberstadt\phpmvc\Model;
+use nicolashalberstadt\phpmvc\UserModel;
 
 /**
  * Class RegisterModel

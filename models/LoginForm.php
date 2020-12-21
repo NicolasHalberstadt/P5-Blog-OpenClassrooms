@@ -6,8 +6,8 @@
 
 namespace app\models;
 
-use app\core\Application;
-use app\core\Model;
+use nicolashalberstadt\phpmvc\Application;
+use nicolashalberstadt\phpmvc\Model;
 
 /**
  * Class LoginForm

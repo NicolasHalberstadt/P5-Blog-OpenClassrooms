@@ -4,11 +4,11 @@
 * Time: 10:13
 */
 
-/** @var $this \app\core\View */
+/** @var $this \nicolashalberstadt\phpmvc\View */
 /** @var $model \app\models\ContactForm */
 
-use app\core\form\Form;
-use app\core\form\TextareaField;
+use nicolashalberstadt\phpmvc\form\Form;
+use nicolashalberstadt\phpmvc\form\TextareaField;
 
 $this->title = 'Contact'
 ?>

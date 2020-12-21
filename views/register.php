@@ -2,7 +2,7 @@
 /** @var $model \app\models\User */
 ?>
 <h1>Create an account</h1>
-<?php $form = app\core\form\Form::begin('', 'post') ?>
+<?php $form = nicolashalberstadt\phpmvc\form\Form::begin('', 'post') ?>
 
 <div class="row">
     <div class="col">
@@ -18,4 +18,4 @@
 
 <button type="submit" class="btn btn-primary">Submit</button>
 
-<?php \app\core\form\Form::end() ?>
+<?php \nicolashalberstadt\phpmvc\form\Form::end() ?>

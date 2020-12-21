@@ -6,11 +6,11 @@
 
 namespace app\controllers;
 
-use app\core\Application;
-use app\core\Controller;
-use app\core\middlewares\AuthMiddleware;
-use app\core\Request;
-use app\core\Response;
+use nicolashalberstadt\phpmvc\Application;
+use nicolashalberstadt\phpmvc\Controller;
+use nicolashalberstadt\phpmvc\middlewares\AuthMiddleware;
+use nicolashalberstadt\phpmvc\Request;
+use nicolashalberstadt\phpmvc\Response;
 use app\models\LoginForm;
 use app\models\User;
 
