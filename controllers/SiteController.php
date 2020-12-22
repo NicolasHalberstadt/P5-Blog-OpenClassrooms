@@ -20,25 +20,23 @@ use app\models\ContactForm;
  */
 class SiteController extends Controller
 {
-    public function home()
-    {
-        $params = [
-            'name' => 'Nicolas'
-        ];
-        return $this->render('home', $params);
-    }
+    /* public function home()
+     {
+         return $this->render('home');
+     }*/
 
-    public function contact(Request $request, Response $response)
+    // handling contact form on the home page
+    public function home(Request $request, Response $response)
     {
         $contact = new ContactForm();
         if ($request->isPost()) {
             $contact->loadData($request->getBody());
-            if ($contact->validate() && $contact->send()) {
+            if ($contact->validate() && $contact->send($request)) {
                 Application::$app->session->setFlash('success', 'Thanks for contacting us, we will get back to you soon');
-                return $response->redirect('/contact');
+                return $response->redirect('/');
             }
         }
-        return $this->render('contact', [
+        return $this->render('home', [
             'model' => $contact
         ]);
     }
