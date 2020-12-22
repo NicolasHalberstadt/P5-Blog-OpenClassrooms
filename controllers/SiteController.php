@@ -6,6 +6,9 @@
 
 namespace app\controllers;
 
+use app\middlewares\EditorMiddleware;
+use app\models\Post;
+use app\models\User;
 use nicolashalberstadt\phpmvc\Application;
 use nicolashalberstadt\phpmvc\Controller;
 use nicolashalberstadt\phpmvc\Request;
@@ -20,6 +23,11 @@ use app\models\ContactForm;
  */
 class SiteController extends Controller
 {
+    public function __construct()
+    {
+        $this->registerMiddleware(new EditorMiddleware(['admin']));
+    }
+
     /* public function home()
      {
          return $this->render('home');
@@ -28,6 +36,7 @@ class SiteController extends Controller
     // handling contact form on the home page
     public function home(Request $request, Response $response)
     {
+        $posts = Post::findAll();
         $contact = new ContactForm();
         if ($request->isPost()) {
             $contact->loadData($request->getBody());
@@ -37,7 +46,18 @@ class SiteController extends Controller
             }
         }
         return $this->render('home', [
-            'model' => $contact
+            'model' => $contact,
+            'posts' => $posts
         ]);
+    }
+
+    public function admin()
+    {
+        $users = User::findAll();
+        $this->layout = 'admin';
+        return $this->render('admin', [
+            'users' => $users
+        ]
+        );
     }
 }
