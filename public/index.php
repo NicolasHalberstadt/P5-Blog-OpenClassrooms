@@ -24,9 +24,11 @@ $config = [
 
 $app = new Application(dirname(__DIR__), $config);
 
+// handling contact form on the home page
 $app->router->get('/', [SiteController::class, 'home']);
-$app->router->get('/contact', [SiteController::class, 'contact']);
-$app->router->post('/contact', [SiteController::class, 'contact']);
+$app->router->post('/', [SiteController::class, 'home']);
+/*$app->router->get('/contact', [SiteController::class, 'contact']);*/
+
 
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'login']);
