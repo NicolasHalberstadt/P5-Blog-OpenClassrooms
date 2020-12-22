@@ -68,6 +68,11 @@ use nicolashalberstadt\phpmvc\Application;
     <?php endif; ?>
     {{content}}
 </div>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">
+        Admin panel
+    </a>
+</nav>
 
 <!-- Optional JavaScript; choose one of the two! -->
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
