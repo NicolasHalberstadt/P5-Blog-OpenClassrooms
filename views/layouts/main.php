@@ -34,7 +34,7 @@ use nicolashalberstadt\phpmvc\Application;
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link" href="/#contact">Contact</a>
             </li>
         </ul>
         <?php if (Application::isGuest()): ?>

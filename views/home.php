@@ -12,7 +12,7 @@ $this->title = 'Home'
 <h1>Home</h1>
 
 
-<h1>Contact</h1>
+<h3><a id="contact"></a>Contact</h3>
 
 <?php $form = Form::begin('', 'post') ?>
 <?php echo $form->field($model, 'subject'); ?>

@@ -38,7 +38,6 @@ class AuthController extends Controller
                 return;
             }
         }
-        $this->setLayout('auth');
 
         return $this->render('login', [
             'model' => $loginForm
@@ -58,7 +57,6 @@ class AuthController extends Controller
                 'model' => $user
             ]);
         }
-        $this->setLayout('auth');
         return $this->render('register', [
             'model' => $user
         ]);
