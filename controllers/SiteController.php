@@ -6,6 +6,7 @@
 
 namespace app\controllers;
 
+use app\core\App;
 use app\middlewares\EditorMiddleware;
 use app\models\Post;
 use app\models\User;
@@ -54,10 +55,12 @@ class SiteController extends Controller
     public function admin()
     {
         $users = User::findAll();
+        $isAdmin = App::isAdmin();
         $this->layout = 'admin';
         return $this->render('admin', [
-            'users' => $users
-        ]
+                'users' => $users,
+                'isAdmin' => $isAdmin
+            ]
         );
     }
 }
