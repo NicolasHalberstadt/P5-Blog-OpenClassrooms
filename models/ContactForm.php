@@ -7,6 +7,9 @@
 namespace app\models;
 
 use nicolashalberstadt\phpmvc\Model;
+use nicolashalberstadt\phpmvc\Request;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 
 /**
  * Class ContactForm
@@ -38,8 +41,39 @@ class ContactForm extends Model
         ];
     }
 
-    public function send()
+    public function send(Request $request): bool
     {
-        return true;
+        // ContactForm data :
+        $body = $request->getBody();
+        $contactFormAddress = $body['email'];
+        $contactFormBody = $body['body'];
+        $contactFormSubject = $body['subject'];
+
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPAuth = true;
+        $mail->Username = 'halberstadtnicolas@gmail.com';
+        $mail->Password = 'mqfhmazuqfjygsip';
+
+        $mail->addReplyTo($contactFormAddress, 'Contact form');
+        $mail->setFrom($contactFormAddress, 'Contact form');
+        $mail->addAddress('halberstadtnicolas@gmail.com', 'Nicolas Halberstadt');
+
+        $mail->isHTML(true);
+        $mail->Subject = $contactFormSubject;
+
+        $mailBody = "Nouveau message de la part de $contactFormAddress. <br>Message : $contactFormBody";
+        $mail->Body = $mailBody;
+        $mail->AltBody = $contactFormBody;
+
+        if (!$mail->send()) {
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            return true;
+        }
     }
 }
