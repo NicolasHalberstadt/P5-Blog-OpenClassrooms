@@ -27,4 +27,16 @@ class App extends Application
         }
         return false;
     }
+
+    public static function isAdmin(): bool
+    {
+        if (Application::$app->user) {
+            $userType = Application::$app->user->user_type;
+            if ($userType == 3) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }
