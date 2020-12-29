@@ -29,11 +29,6 @@ class SiteController extends Controller
         $this->registerMiddleware(new EditorMiddleware(['admin']));
     }
 
-    /* public function home()
-     {
-         return $this->render('home');
-     }*/
-
     // handling contact form on the home page
     public function home(Request $request, Response $response)
     {
@@ -62,5 +57,56 @@ class SiteController extends Controller
                 'isAdmin' => $isAdmin
             ]
         );
+    }
+
+    public function editUser(Request $request, Response $response)
+    {
+        $userId = $_GET['id'];
+        $user = User::findOne(['id' => $userId]);
+        $userType = null;
+        $userStatus = null;
+        // changing userType and userStatus int into string for display
+        switch ($user->type) {
+            case 1:
+                $userType = 'Member';
+                break;
+            case 2:
+                $userType = 'Editor';
+                break;
+            case 3:
+                $userType = 'Admin';
+                break;
+        }
+        switch ($user->status) {
+            case 0:
+                $userStatus = 'Inactive';
+                break;
+            case 1:
+                $userStatus = 'Active';
+                break;
+            case 2:
+                $userStatus = 'Deleted';
+                break;
+        }
+        if (!$user) {
+            Application::$app->session->setFlash('error', 'No user with this id exists');
+            $response->redirect('/admin');
+        }
+        if ($request->isPost()) {
+            $user->loadData($request->getBody());
+            if ($user->update()) {
+                Application::$app->session->setFlash('success', 'The user has been successfully updated');
+            }
+            return $this->render('edit_user', [
+                'userType' => $userType,
+                'userStatus' => $userStatus,
+                'model' => $user
+            ]);
+        }
+        return $this->render('edit_user', [
+            'userType' => $userType,
+            'userStatus' => $userStatus,
+            'model' => $user
+        ]);
     }
 }
