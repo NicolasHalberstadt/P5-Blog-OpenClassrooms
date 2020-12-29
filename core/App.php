@@ -19,7 +19,7 @@ class App extends Application
     public static function isEditor(): bool
     {
         if (Application::$app->user) {
-            $userType = Application::$app->user->user_type;
+            $userType = Application::$app->user->type;
             if ($userType == 2 || $userType == 3) {
                 return true;
             }
@@ -31,7 +31,7 @@ class App extends Application
     public static function isAdmin(): bool
     {
         if (Application::$app->user) {
-            $userType = Application::$app->user->user_type;
+            $userType = Application::$app->user->type;
             if ($userType == 3) {
                 return true;
             }
