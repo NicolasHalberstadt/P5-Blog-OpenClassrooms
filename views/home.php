@@ -34,8 +34,16 @@ $this->title = 'Home'
 <h3><a id="contact"></a>Contact</h3>
 
 <?php $form = Form::begin('', 'post') ?>
-<?php echo $form->field($model, 'subject'); ?>
+<div class="row">
+    <div class="col">
+        <?php echo $form->field($model, 'firstname') ?>
+    </div>
+    <div class="col">
+        <?php echo $form->field($model, 'lastname') ?>
+    </div>
+</div>
 <?php echo $form->field($model, 'email'); ?>
+<?php echo $form->field($model, 'subject'); ?>
 <?php echo new TextareaField($model, 'body') ?>
 
 <button type="submit" class="btn btn-primary">Submit</button>

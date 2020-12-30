@@ -19,6 +19,8 @@ use PHPMailer\PHPMailer\SMTP;
  */
 class ContactForm extends Model
 {
+    public string $firstname = '';
+    public string $lastname = '';
     public string $subject = '';
     public string $email = '';
     public string $body = '';
@@ -26,6 +28,8 @@ class ContactForm extends Model
     public function rules(): array
     {
         return [
+            'firstname' => [self::RULE_REQUIRED],
+            'lastname' => [self::RULE_REQUIRED],
             'subject' => [self::RULE_REQUIRED],
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'body' => [self::RULE_REQUIRED],
@@ -35,6 +39,8 @@ class ContactForm extends Model
     public function labels(): array
     {
         return [
+            'firstname' => 'Your firstname',
+            'lastname' => 'Your lastname',
             'subject' => 'Enter your subject',
             'email' => 'Your email',
             'body' => 'Enter your message',
@@ -45,6 +51,8 @@ class ContactForm extends Model
     {
         // ContactForm data :
         $body = $request->getBody();
+        $contactFormFirstname = $body['firstname'];
+        $contactFormLastname = $body['lastname'];
         $contactFormAddress = $body['email'];
         $contactFormBody = $body['body'];
         $contactFormSubject = $body['subject'];
@@ -66,7 +74,7 @@ class ContactForm extends Model
         $mail->isHTML(true);
         $mail->Subject = $contactFormSubject;
 
-        $mailBody = "Nouveau message de la part de $contactFormAddress. <br>Message : $contactFormBody";
+        $mailBody = "Nouveau message de la part de $contactFormFirstname $contactFormLastname - $contactFormAddress. <br>Message : $contactFormBody";
         $mail->Body = $mailBody;
         $mail->AltBody = $contactFormBody;
 
