@@ -16,6 +16,7 @@
         "vlucas/phpdotenv": "^5.2",
         "nicolashalberstadt/php-mvc-core": "^v1.0.3",
         "phpmailer/phpmailer": "^6.2",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-pdo": "*"
     }
 }
