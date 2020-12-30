@@ -6,6 +6,7 @@
 
 use app\models\ContactForm;
 use app\models\Post;
+use app\models\User;
 use nicolashalberstadt\phpmvc\form\Form;
 use nicolashalberstadt\phpmvc\form\TextareaField;
 use nicolashalberstadt\phpmvc\View;
@@ -16,19 +17,22 @@ $this->title = 'Home'
 
 <!-- Posts lists -->
 <h2>Posts list</h2>
-<?php foreach ($posts as $post) : ?>
-    <div class="row">
-        <div class="col-sm-6">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <?php foreach ($posts as $post) : ?>
+        <div class="col">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><?= $post['title'] ?></h5>
                     <p class="card-text"><?= $post['chapo'] ?></p>
+                    <p class="card-text"><small
+                                class="text-muted">Written by <?= User::findOne(['id' => $post['user_id']])->getDisplayName(); ?></small>
+                    </p>
                     <a href="#" class="btn btn-primary">Read the post</a>
                 </div>
             </div>
         </div>
-    </div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
+</div>
 <!-- Posts lists -->
 <!-- Contact form -->
 <h3><a id="contact"></a>Contact</h3>
