@@ -39,8 +39,12 @@ class LoginForm extends Model
     public function login()
     {
         $user = User::findOne(['email' => $this->email]);
-        if (!$user) {
+        if (!$user || $user->status === 2) {
             $this->addError('email', 'User does not exist with this email address');
+            return false;
+        }
+        if($user->status === 0) {
+            $this->addError('email', 'The user with this email has not yet been approved, please wait until an administrator activate your account.');
             return false;
         }
         if (!password_verify($this->password, $user->password)) {
