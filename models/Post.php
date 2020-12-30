@@ -6,6 +6,7 @@
 
 namespace app\models;
 
+use nicolashalberstadt\phpmvc\Application;
 use nicolashalberstadt\phpmvc\db\DbModel;
 
 /**
@@ -55,6 +56,17 @@ class Post extends DbModel
 
     public function save()
     {
-        return parent::save();
+        $tableName = $this->tableName();
+        $attributes = $this->attributes();
+        $params = array_map(fn($attr) => ":$attr", $attributes);
+        $userId = Application::$app->user->id;
+
+        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ",user_id)
+                VALUES(" . implode(',', $params) . ", (SELECT id FROM users WHERE users.id = $userId))");
+        foreach ($attributes as $attribute) {
+            $statement->bindValue(":$attribute", $this->{$attribute});
+        }
+        $statement->execute();
+        return true;
     }
 }
