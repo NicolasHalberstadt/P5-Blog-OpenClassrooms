@@ -20,12 +20,25 @@
         <tbody>
         <?php $index = 0;
         foreach ($users as $user) : ?>
-            <?php $index++; ?>
+            <?php $index++;
+            switch ($user['type']) {
+                case 1:
+                    $userType = 'Member';
+                    break;
+                case 2:
+                    $userType = 'Editor';
+                    break;
+                case 3:
+                    $userType = 'Admin';
+                    break;
+            }
+            ?>
             <tr>
                 <th scope="row"><?= $index ?></th>
                 <td><?= $user['firstname'] ?></td>
                 <td><?= $user['lastname'] ?></td>
-                <td><?= $user['user_type'] ?></td>
+                <td><?= $userType ?></td>
+                <td><a href="/user/edit?id=<?= $user['id'] ?>">Edit</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

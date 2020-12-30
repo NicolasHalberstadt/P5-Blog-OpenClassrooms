@@ -25,11 +25,16 @@ $config = [
 
 $app = new Application(dirname(__DIR__), $config);
 
-// handling contact form on the home page
+// Home
 $app->router->get('/', [SiteController::class, 'home']);
 $app->router->post('/', [SiteController::class, 'home']);
-$app->router->get('/admin', [SiteController::class, 'admin']);
 
+// Admin
+$app->router->get('/admin', [SiteController::class, 'admin']);
+$app->router->get('/user/edit', [SiteController::class, 'editUser']);
+$app->router->post('/user/edit', [SiteController::class, 'editUser']);
+
+// Auth
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'login']);
 $app->router->get('/register', [AuthController::class, 'register']);
@@ -37,6 +42,7 @@ $app->router->post('/register', [AuthController::class, 'register']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 $app->router->get('/profile', [AuthController::class, 'profile']);
 
+// Blog
 $app->router->get('/post/add', [BlogController::class, 'addPost']);
 $app->router->post('/post/add', [BlogController::class, 'addPost']);
 

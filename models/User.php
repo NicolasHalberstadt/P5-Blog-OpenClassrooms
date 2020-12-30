@@ -44,12 +44,17 @@ class User extends UserModel
         return 'id';
     }
 
-    public function save()
+    public function save(): bool
     {
         $this->type = self::USER_MEMBER;
         $this->status = self::STATUS_INACTIVE;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return parent::save();
+    }
+
+    public function update()
+    {
+        return parent::update();
     }
 
     public function rules(): array
@@ -69,7 +74,7 @@ class User extends UserModel
 
     public function attributes(): array
     {
-        return ['firstname', 'lastname', 'email', 'password', 'status'];
+        return ['firstname', 'lastname', 'email', 'password', 'status', 'type'];
     }
 
     public function labels(): array
@@ -80,12 +85,14 @@ class User extends UserModel
             'email' => 'Email',
             'password' => 'Password',
             'confirmPassword' => 'Confirm password',
+            'status' => 'Status',
+            'type' => 'Type'
         ];
     }
 
 
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
-        return $this->firstname.' '.$this->lastname;
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
