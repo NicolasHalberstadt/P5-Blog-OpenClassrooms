@@ -12,9 +12,10 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
             <th scope="col">Type</th>
+            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
@@ -32,12 +33,25 @@
                     $userType = 'Admin';
                     break;
             }
+            switch ($user['status']) {
+                case 0:
+                    $userStatus = 'Inactive';
+                    break;
+                case 1:
+                    $userStatus = 'Active';
+                    break;
+                case 2:
+                    $userStatus = 'Deleted';
+                    break;
+            }
             ?>
+
             <tr>
                 <th scope="row"><?= $index ?></th>
                 <td><?= $user['firstname'] ?></td>
                 <td><?= $user['lastname'] ?></td>
                 <td><?= $userType ?></td>
+                <td><?= $userStatus ?></td>
                 <td><a href="/user/edit?id=<?= $user['id'] ?>">Edit</a></td>
             </tr>
         <?php endforeach; ?>
