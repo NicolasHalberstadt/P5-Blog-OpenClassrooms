@@ -98,6 +98,7 @@ class SiteController extends Controller
             $user->loadData($request->getBody());
             if ($user->update()) {
                 Application::$app->session->setFlash('success', 'The user has been successfully updated');
+                $response->redirect('/admin');
             }
             return $this->render('edit_user', [
                 'userType' => $userType,
