@@ -3,12 +3,19 @@
 * Date: 22/12/2020
 * Time: 11:54
 */
-/**@var $users \app\models\User */
+/**@var $users User */
+/**@var $posts \app\models\Post */
+
 /**@var $isAdmin bool */
+
+use app\models\User;
+use nicolashalberstadt\phpmvc\Application;
+
 ?>
-    <h1>Welcome to the admin panel</h1>
+<h1>Hello <?= Application::$app->user->firstname ?>, welcome to the admin panel</h1>
 <?php if ($isAdmin) : ?>
-    <table class="table table-bordered">Registered users
+    <!-- User table -->
+    <table class="table table-bordered admin-table">Registered users
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -58,3 +65,33 @@
         </tbody>
     </table>
 <?php endif; ?>
+<!-- Posts table -->
+<table class="table table-bordered admin-table">Blog Posts
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Chapo</th>
+        <th scope="col">Content</th>
+        <th scope="col">Created at</th>
+        <th scope="col">Author</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php $index = 0;
+    foreach ($posts as $post) : ?>
+        <?php $index++;
+        ?>
+        <tr>
+            <th scope="row"><?= $index ?></th>
+            <td><?= $post['title'] ?></td>
+            <td><?= $post['chapo'] ?></td>
+            <td><?= $post['content'] ?></td>
+            <td><?= $post['created_at'] ?></td>
+            <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
+
+            <td><a href="/post/edit?id=<?= $post['id'] ?>">Edit</a></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

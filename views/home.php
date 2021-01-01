@@ -25,9 +25,10 @@ $this->title = 'Home'
                     <h5 class="card-title"><?= $post['title'] ?></h5>
                     <p class="card-text"><?= $post['chapo'] ?></p>
                     <p class="card-text"><small
-                                class="text-muted">Written by <?= User::findOne(['id' => $post['user_id']])->getDisplayName(); ?></small>
+                                class="text-muted">Written
+                            by <?= User::findOne(['id' => $post['user_id']])->getDisplayName(); ?></small>
                     </p>
-                    <a href="#" class="btn btn-primary">Read the post</a>
+                    <a href="post?id=<?= $post['id'] ?>" class="btn btn-primary">Read the post</a>
                 </div>
             </div>
         </div>
