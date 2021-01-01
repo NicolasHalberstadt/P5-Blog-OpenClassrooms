@@ -34,6 +34,7 @@ $app->router->get('/admin', [SiteController::class, 'admin']);
 $app->router->get('/user/edit', [SiteController::class, 'editUser']);
 $app->router->post('/user/edit', [SiteController::class, 'editUser']);
 
+
 // Auth
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'login']);
@@ -43,7 +44,10 @@ $app->router->get('/logout', [AuthController::class, 'logout']);
 $app->router->get('/profile', [AuthController::class, 'profile']);
 
 // Blog
+$app->router->get('/post', [BlogController::class, 'showPost']);
 $app->router->get('/post/add', [BlogController::class, 'addPost']);
 $app->router->post('/post/add', [BlogController::class, 'addPost']);
+$app->router->get('/post/edit', [BlogController::class, 'editPost']);
+$app->router->post('/post/edit', [BlogController::class, 'editPost']);
 
 $app->run();
