@@ -90,7 +90,11 @@ use nicolashalberstadt\phpmvc\Application;
             <td><?= $post['created_at'] ?></td>
             <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
 
-            <td><a href="/post/edit?id=<?= $post['id'] ?>">Edit</a></td>
+            <td><a href="/post/edit?id=<?= $post['id'] ?>">Edit</a>
+                <br>
+                <a onClick="javascript: return confirm('Please confirm deletion');"
+                   href="/post/delete?id=<?= $post['id'] ?>">Delete</a>
+            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>
