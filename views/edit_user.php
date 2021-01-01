@@ -14,7 +14,6 @@
 <?php echo $form->field($model, 'firstname') ?>
 <?php echo $form->field($model, 'lastname') ?>
 <?php echo $form->field($model, 'email') ?>
-<?php echo new \app\core\form\DisabledInputField($model, 'password') ?>
 <?php echo new \app\core\form\UserTypeSelectInputField($model, 'type'); ?>
 <?php echo new \app\core\form\UserStatusSelectInputField($model, 'status'); ?>
     <button type="submit" class="btn btn-primary">Save</button>
