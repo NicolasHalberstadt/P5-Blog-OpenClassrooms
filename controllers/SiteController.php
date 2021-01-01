@@ -50,10 +50,12 @@ class SiteController extends Controller
     public function admin()
     {
         $users = User::findAll();
+        $posts = Post::findAll();
         $isAdmin = App::isAdmin();
         $this->layout = 'admin';
         return $this->render('admin', [
                 'users' => $users,
+                'posts' => $posts,
                 'isAdmin' => $isAdmin
             ]
         );
