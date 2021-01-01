@@ -26,6 +26,7 @@ class BlogController extends Controller
     {
         $this->registerMiddleware(new EditorMiddleware(['addPost']));
         $this->registerMiddleware(new EditorMiddleware(['editPost']));
+        $this->registerMiddleware(new EditorMiddleware(['deletePost']));
     }
 
     public function showPost(Request $request, Response $response)
@@ -60,8 +61,7 @@ class BlogController extends Controller
 
     public function editPost(Request $request, Response $response)
     {
-        $postId = $_GET['id'];
-        $post = Post::findOne(['id' => $postId]);
+        $post = Post::findOne(['id' => $_GET['id']]);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
             $response->redirect('/admin');
@@ -78,5 +78,18 @@ class BlogController extends Controller
         return $this->render('edit_post', [
             'model' => $post
         ]);
+    }
+
+    public function deletePost(Request $request, Response $response)
+    {
+        $post = Post::findOne(['id' => $_GET['id']]);
+        if (!$post) {
+            Application::$app->session->setFlash('error', 'No post with this id exists in the database');
+            $response->redirect('/admin');
+        }
+        if ($post->delete()) {
+            Application::$app->session->setFlash('success', 'The post has been successfully deleted');
+            $response->redirect('/admin');
+        }
     }
 }
