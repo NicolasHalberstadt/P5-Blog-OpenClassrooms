@@ -25,6 +25,7 @@ class BlogController extends Controller
     public function __construct()
     {
         $this->registerMiddleware(new EditorMiddleware(['addPost']));
+        $this->registerMiddleware(new EditorMiddleware(['editPost']));
     }
 
     public function showPost(Request $request, Response $response)
