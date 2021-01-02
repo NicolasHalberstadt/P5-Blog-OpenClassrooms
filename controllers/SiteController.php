@@ -7,6 +7,7 @@
 namespace app\controllers;
 
 use app\core\App;
+use app\middlewares\AdminMiddleware;
 use app\middlewares\EditorMiddleware;
 use app\models\Post;
 use app\models\User;
@@ -27,6 +28,7 @@ class SiteController extends Controller
     public function __construct()
     {
         $this->registerMiddleware(new EditorMiddleware(['admin']));
+        $this->registerMiddleware(new AdminMiddleware(['deleteUser']));
     }
 
     // handling contact form on the home page
@@ -37,7 +39,7 @@ class SiteController extends Controller
         if ($request->isPost()) {
             $contact->loadData($request->getBody());
             if ($contact->validate() && $contact->send($request)) {
-                Application::$app->session->setFlash('success', 'Thanks for contacting us, we will get back to you soon');
+                Application::$app->session->setFlash('success', 'Thanks for contacting me, I will get back to you soon');
                 return $response->redirect('/');
             }
         }
@@ -111,5 +113,25 @@ class SiteController extends Controller
             'userStatus' => $userStatus,
             'model' => $user
         ]);
+    }
+
+    public function deleteUser(Response $response)
+    {
+        $user = User::findOne(['id' => $_GET['id']]);
+        if (!$user) {
+            Application::$app->session->setFlash('error', 'No user with this id exists in the database');
+            $response->redirect('/admin');
+        }
+        // make all of user's data empty to avoid post deletion
+        $user->firstname = 'member';
+        $user->lastname = '';
+        $user->email = '';
+        $user->status = 2;
+        $user->type = 1;
+        $user->password = '';
+        if ($user->update()) {
+            Application::$app->session->setFlash('success', 'The user has been successfully deleted');
+            $response->redirect('/admin');
+        }
     }
 }
