@@ -31,6 +31,8 @@ $this->title = 'Home'
                     <a href="post?id=<?= $post['id'] ?>" class="btn btn-primary">Read the post</a>
                     <?php if (App::isEditor()): ?>
                         <a href="post/edit?id=<?= $post['id'] ?>" class="btn btn-info">Edit the post</a>
+                        <a onClick="javascript: return confirm('Please confirm deletion');"
+                           href="post/delete?id=<?= $post['id'] ?>" class="btn btn-danger">Delete the post</a>
                     <?php endif; ?>
                 </div>
             </div>
