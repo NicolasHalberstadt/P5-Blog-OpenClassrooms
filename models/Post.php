@@ -8,6 +8,7 @@ namespace app\models;
 
 use nicolashalberstadt\phpmvc\Application;
 use nicolashalberstadt\phpmvc\db\DbModel;
+use PDOException;
 
 /**
  * Class Post
@@ -28,7 +29,7 @@ class Post extends DbModel
 
     public function attributes(): array
     {
-        return ['title', 'chapo', 'content', 'updated_at'];
+        return ['title', 'chapo', 'content'];
     }
 
     public static function primaryKey(): string
