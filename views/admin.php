@@ -74,6 +74,7 @@ use nicolashalberstadt\phpmvc\Application;
         <th scope="col">Chapo</th>
         <th scope="col">Content</th>
         <th scope="col">Created at</th>
+        <th scope="col">Updated at</th>
         <th scope="col">Author</th>
     </tr>
     </thead>
@@ -87,7 +88,10 @@ use nicolashalberstadt\phpmvc\Application;
             <td><?= $post['title'] ?></td>
             <td><?= $post['chapo'] ?></td>
             <td><?= $post['content'] ?></td>
-            <td><?= $post['created_at'] ?></td>
+            <td><?php $t = strtotime($post['created_at']);
+                echo date('d-m-Y', $t); ?></td>
+            <td><?php $t = strtotime($post['updated_at']);
+                echo date('d-m-Y', $t); ?></td>
             <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
 
             <td><a href="/post/edit?id=<?= $post['id'] ?>">Edit</a>
