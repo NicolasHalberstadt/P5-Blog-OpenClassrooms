@@ -16,6 +16,18 @@ use nicolashalberstadt\phpmvc\Application;
  */
 class App extends Application
 {
+    public static function isMember(): bool
+    {
+        if (Application::$app->user) {
+            $userType = Application::$app->user->type;
+            if ($userType == 1) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     public static function isEditor(): bool
     {
         if (Application::$app->user) {
