@@ -25,8 +25,8 @@ $this->title = 'Home'
                     <h5 class="card-title"><?= $post['title'] ?></h5>
                     <p class="card-text"><?= $post['chapo'] ?></p>
                     <p class="card-text"><small
-                                class="text-muted">Written
-                            by <?= User::findOne(['id' => $post['user_id']])->getDisplayName(); ?></small>
+                                class="text-muted">Last modified on <?php $t = strtotime($post['updated_at']);
+                            echo date('F jS Y', $t); ?></small>
                     </p>
                     <a href="post?id=<?= $post['id'] ?>" class="btn btn-primary">Read the post</a>
                 </div>
