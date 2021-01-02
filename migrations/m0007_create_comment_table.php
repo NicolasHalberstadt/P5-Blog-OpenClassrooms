@@ -21,7 +21,7 @@ class m0007_create_comment_table
             user_id INT,
             post_id INT,
             FOREIGN KEY (user_id) REFERENCES users(id),
-            FOREIGN KEY (post_id) REFERENCES posts(id)
+            FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE
         ) ENGINE=INNODB;";
         $db->pdo->exec($sql);
     }
