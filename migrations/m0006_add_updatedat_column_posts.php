@@ -8,7 +8,7 @@ class m0006_add_updatedat_column_posts {
     public function up()
     {
         $db = \nicolashalberstadt\phpmvc\Application::$app->db;
-        $db->pdo->exec("ALTER TABLE posts ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP AFTER created_at");
+        $db->pdo->exec("ALTER TABLE posts ADD COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP AFTER created_at");
     }
 
     public function down()

@@ -44,11 +44,16 @@ $app->router->get('/profile', [AuthController::class, 'profile']);
 
 // Blog
 $app->router->get('/post', [BlogController::class, 'showPost']);
+$app->router->post('/post', [BlogController::class, 'showPost']);
 $app->router->get('/post/add', [BlogController::class, 'addPost']);
 $app->router->post('/post/add', [BlogController::class, 'addPost']);
 $app->router->get('/post/edit', [BlogController::class, 'editPost']);
 $app->router->post('/post/edit', [BlogController::class, 'editPost']);
 $app->router->post('/post/delete', [BlogController::class, 'deletePost']);
 $app->router->get('/post/delete', [BlogController::class, 'deletePost']);
+$app->router->get('/comment/validate', [BlogController::class, 'validateComment']);
+$app->router->post('/comment/validate', [BlogController::class, 'validateComment']);
+$app->router->get('/comment/edit', [BlogController::class, 'editComment']);
+$app->router->post('/comment/edit', [BlogController::class, 'editComment']);
 
 $app->run();
