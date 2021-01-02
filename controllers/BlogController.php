@@ -10,7 +10,6 @@ use app\middlewares\EditorMiddleware;
 use app\models\Post;
 use nicolashalberstadt\phpmvc\Application;
 use nicolashalberstadt\phpmvc\Controller;
-use nicolashalberstadt\phpmvc\middlewares\AuthMiddleware;
 use nicolashalberstadt\phpmvc\Request;
 use nicolashalberstadt\phpmvc\Response;
 
@@ -68,6 +67,10 @@ class BlogController extends Controller
         }
         if ($request->isPost()) {
             $post->loadData($request->getBody());
+            $format = 'Y-m-d H:i:s';
+            $currentDate = date($format);
+            $post->updated_at = \DateTime::createFromFormat($format, $currentDate);
+            $post->updated_at = $post->updated_at->format($format);
             if ($post->update()) {
                 Application::$app->session->setFlash('success', 'The post has been successfully updated');
             }
