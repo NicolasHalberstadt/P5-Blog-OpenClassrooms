@@ -106,7 +106,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function deletePost(Response $response)
+    public function deletePost(Request $request, Response $response)
     {
         $post = Post::findOne(['id' => $_GET['id']]);
         if (!$post) {
