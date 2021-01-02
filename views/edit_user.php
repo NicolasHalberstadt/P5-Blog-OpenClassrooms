@@ -8,7 +8,7 @@
 /** @var $userStatus string */
 
 ?>
-    <h1>Edit <?= $model->getDisplayName() ?>'s account</h1>
+<h1>Edit <?= $model->getDisplayName() ?>'s account</h1>
 <?php $form = nicolashalberstadt\phpmvc\form\Form::begin('', 'post') ?>
 
 <?php echo $form->field($model, 'firstname') ?>
@@ -16,6 +16,9 @@
 <?php echo $form->field($model, 'email') ?>
 <?php echo new \app\core\form\UserTypeSelectInputField($model, 'type'); ?>
 <?php echo new \app\core\form\UserStatusSelectInputField($model, 'status'); ?>
-    <button type="submit" class="btn btn-primary">Save</button>
+<button type="submit" class="btn btn-primary">Save</button>
 
 <?php \nicolashalberstadt\phpmvc\form\Form::end() ?>
+
+<a onClick="javascript: return confirm('Please confirm user deletion');" href="/user/delete?id=<?= $model->id ?>"
+   class="btn btn-danger">Delete user</a>
