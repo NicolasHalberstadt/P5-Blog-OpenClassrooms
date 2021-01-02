@@ -28,39 +28,38 @@ use nicolashalberstadt\phpmvc\Application;
         <tbody>
         <?php $index = 0;
         foreach ($users as $user) : ?>
-            <?php $index++;
-            switch ($user['type']) {
-                case 1:
-                    $userType = 'Member';
-                    break;
-                case 2:
-                    $userType = 'Editor';
-                    break;
-                case 3:
-                    $userType = 'Admin';
-                    break;
-            }
-            switch ($user['status']) {
-                case 0:
-                    $userStatus = 'Inactive';
-                    break;
-                case 1:
-                    $userStatus = 'Active';
-                    break;
-                case 2:
-                    $userStatus = 'Deleted';
-                    break;
-            }
-            ?>
+            <?php if ($user['status'] != 2): ?>
+                <?php $index++;
+                switch ($user['type']) {
+                    case 1:
+                        $userType = 'Member';
+                        break;
+                    case 2:
+                        $userType = 'Editor';
+                        break;
+                    case 3:
+                        $userType = 'Admin';
+                        break;
+                }
+                switch ($user['status']) {
+                    case 0:
+                        $userStatus = 'Inactive';
+                        break;
+                    case 1:
+                        $userStatus = 'Active';
+                        break;
+                }
+                ?>
 
-            <tr>
-                <th scope="row"><?= $index ?></th>
-                <td><?= $user['firstname'] ?></td>
-                <td><?= $user['lastname'] ?></td>
-                <td><?= $userType ?></td>
-                <td><?= $userStatus ?></td>
-                <td><a href="/user/edit?id=<?= $user['id'] ?>">Edit</a></td>
-            </tr>
+                <tr>
+                    <th scope="row"><?= $index ?></th>
+                    <td><?= $user['firstname'] ?></td>
+                    <td><?= $user['lastname'] ?></td>
+                    <td><?= $userType ?></td>
+                    <td><?= $userStatus ?></td>
+                    <td><a href="/user/edit?id=<?= $user['id'] ?>">Edit</a></td>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
         </tbody>
     </table>
