@@ -4,9 +4,9 @@
 
 /** @var $posts Post */
 
+use app\core\App;
 use app\models\ContactForm;
 use app\models\Post;
-use app\models\User;
 use nicolashalberstadt\phpmvc\form\Form;
 use nicolashalberstadt\phpmvc\form\TextareaField;
 use nicolashalberstadt\phpmvc\View;
@@ -29,6 +29,9 @@ $this->title = 'Home'
                             echo date('F jS Y', $t); ?></small>
                     </p>
                     <a href="post?id=<?= $post['id'] ?>" class="btn btn-primary">Read the post</a>
+                    <?php if (App::isEditor()): ?>
+                        <a href="post/edit?id=<?= $post['id'] ?>" class="btn btn-info">Edit the post</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
