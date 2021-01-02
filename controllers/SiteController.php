@@ -32,7 +32,7 @@ class SiteController extends Controller
     // handling contact form on the home page
     public function home(Request $request, Response $response)
     {
-        $posts = Post::findAll();
+        $posts = Post::findAll('updated_at');
         $contact = new ContactForm();
         if ($request->isPost()) {
             $contact->loadData($request->getBody());
