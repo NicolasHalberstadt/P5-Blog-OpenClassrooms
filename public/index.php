@@ -33,6 +33,9 @@ $app->router->post('/', [SiteController::class, 'home']);
 $app->router->get('/admin', [SiteController::class, 'admin']);
 $app->router->get('/user/edit', [SiteController::class, 'editUser']);
 $app->router->post('/user/edit', [SiteController::class, 'editUser']);
+$app->router->get('/user/delete', [SiteController::class, 'deleteUser']);
+$app->router->post('/user/delete', [SiteController::class, 'deleteUser']);
+
 
 // Auth
 $app->router->get('/login', [AuthController::class, 'login']);
