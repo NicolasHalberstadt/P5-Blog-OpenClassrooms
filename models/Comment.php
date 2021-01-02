@@ -70,18 +70,8 @@ class Comment extends DbModel
     public static function findAll($orderBy = 'created_at', $postId = null): array
     {
         $tableName = self::tableName();
-
-        try {
-            $statement = self::prepare("SELECT * FROM $tableName WHERE `post_id` = $postId ORDER BY $orderBy DESC");
-            $statement->execute();
-            return $statement->fetchAll();
-        } catch (\PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    public function authorize()
-    {
-
+        $statement = self::prepare("SELECT * FROM $tableName WHERE `post_id` = $postId ORDER BY $orderBy DESC");
+        $statement->execute();
+        return $statement->fetchAll();
     }
 }
