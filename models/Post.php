@@ -28,7 +28,7 @@ class Post extends DbModel
 
     public function attributes(): array
     {
-        return ['title', 'chapo', 'content'];
+        return ['title', 'chapo', 'content', 'updated_at'];
     }
 
     public static function primaryKey(): string
