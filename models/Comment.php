@@ -56,10 +56,11 @@ class Comment extends DbModel
         $params = array_map(fn($attr) => ":$attr", $attributes);
         $userId = Application::$app->user->id;
         $postId = $options['post_id'];
-        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ", user_id, post_id)
-                VALUES(" . implode(',', $params) . ", 
-                (SELECT id FROM users WHERE users.id = $userId), 
-                (SELECT id FROM posts WHERE posts.id = $postId))");
+        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes)
+            . ", user_id, post_id)
+            VALUES(" . implode(',', $params)
+            . ", (SELECT id FROM users WHERE users.id = $userId), 
+            (SELECT id FROM posts WHERE posts.id = $postId))");
         foreach ($attributes as $attribute) {
             $statement->bindValue(":$attribute", $this->{$attribute});
         }
@@ -70,7 +71,10 @@ class Comment extends DbModel
     public static function findAll($orderBy = 'created_at', $postId = null): array
     {
         $tableName = self::tableName();
-        $statement = self::prepare("SELECT * FROM $tableName WHERE `post_id` = $postId ORDER BY $orderBy DESC");
+        $statement = self::prepare(
+            "SELECT * FROM $tableName 
+WHERE `post_id` = $postId 
+ORDER BY $orderBy DESC");
         $statement->execute();
         return $statement->fetchAll();
     }
