@@ -61,9 +61,10 @@ class Post extends DbModel
         $attributes = $this->attributes();
         $params = array_map(fn($attr) => ":$attr", $attributes);
         $userId = Application::$app->user->id;
-
-        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ",user_id)
-                VALUES(" . implode(',', $params) . ", (SELECT id FROM users WHERE users.id = $userId))");
+        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes)
+            . ",user_id)
+             VALUES(" . implode(',', $params)
+            . ", (SELECT id FROM users WHERE users.id = $userId))");
         foreach ($attributes as $attribute) {
             $statement->bindValue(":$attribute", $this->{$attribute});
         }
