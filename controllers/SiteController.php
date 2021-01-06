@@ -49,6 +49,11 @@ class SiteController extends Controller
         ]);
     }
 
+    public function cv()
+    {
+        return $this->render('cv');
+    }
+
     public function admin()
     {
         $users = User::findAll();
