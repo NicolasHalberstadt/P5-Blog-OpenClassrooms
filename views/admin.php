@@ -11,25 +11,28 @@
 use app\models\User;
 use nicolashalberstadt\phpmvc\Application;
 
+$this->title = 'Admin panel';
 ?>
-<h1>Hello <?= Application::$app->user->firstname ?>, welcome to the admin panel</h1>
 <?php if ($isAdmin) : ?>
-    <!-- User table -->
-    <table class="table table-bordered admin-table">Registered users
+<!-- User table -->
+<div class="table-container">
+    <h4 class="text-center">List of users</h4>
+    <table class="table admin-table">
+
         <thead>
-        <tr>
-            <th scope="col">#</th>
+        <tr class="table-success">
+            <th scope="col">Id</th>
             <th scope="col">Firstname</th>
             <th scope="col">Lastname</th>
             <th scope="col">Type</th>
             <th scope="col">Status</th>
+            <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
-        <?php $index = 0;
-        foreach ($users as $user) : ?>
+        <?php foreach ($users as $user) : ?>
             <?php if ($user['status'] != 2): ?>
-                <?php $index++;
+                <?php
                 switch ($user['type']) {
                     case 1:
                         $userType = 'Member';
@@ -52,7 +55,7 @@ use nicolashalberstadt\phpmvc\Application;
                 ?>
 
                 <tr>
-                    <th scope="row"><?= $index ?></th>
+                    <th scope="row"><?= $user['id'] ?></th>
                     <td><?= $user['firstname'] ?></td>
                     <td><?= $user['lastname'] ?></td>
                     <td><?= $userType ?></td>
@@ -63,42 +66,43 @@ use nicolashalberstadt\phpmvc\Application;
         <?php endforeach; ?>
         </tbody>
     </table>
-<?php endif; ?>
-<!-- Posts table -->
-<table class="table table-bordered admin-table">Blog Posts
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Chapo</th>
-        <th scope="col">Content</th>
-        <th scope="col">Created at</th>
-        <th scope="col">Updated at</th>
-        <th scope="col">Author</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php $index = 0;
-    foreach ($posts as $post) : ?>
-        <?php $index++;
-        ?>
-        <tr>
-            <th scope="row"><?= $index ?></th>
-            <td><?= $post['title'] ?></td>
-            <td><?= $post['chapo'] ?></td>
-            <td><?= $post['content'] ?></td>
-            <td><?php $t = strtotime($post['created_at']);
-                echo date('d-m-Y', $t); ?></td>
-            <td><?php $t = strtotime($post['updated_at']);
-                echo date('d-m-Y', $t); ?></td>
-            <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
+    <?php endif; ?>
+    <hr>
+</div>
 
-            <td><a href="/post/edit?id=<?= $post['id'] ?>">Edit</a>
-                <br>
-                <a onClick="javascript: return confirm('Please confirm deletion');"
-                   href="/post/delete?id=<?= $post['id'] ?>">Delete</a>
-            </td>
+<!-- Posts table -->
+<div class="table-container">
+
+    <h4 class="text-center">List of posts</h4>
+    <table class="table admin-table">
+        <thead>
+        <tr class=" table-success">
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Updated at</th>
+            <th scope="col">Author</th>
+            <th scope="col">Options</th>
         </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <?php foreach ($posts as $post) : ?>
+            <tr>
+                <th scope="row"><?= $post['id'] ?></th>
+                <td><?= $post['title'] ?></td>
+                <td><?php $t = strtotime($post['created_at']);
+                    echo date('d-m-Y', $t); ?></td>
+                <td><?php $t = strtotime($post['updated_at']);
+                    echo date('d-m-Y', $t); ?></td>
+                <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
+
+                <td><a class="option-edit" href="/post/edit?id=<?= $post['id'] ?>">Edit</a>
+                    <br>
+                    <a class="option-delete" onClick="javascript: return confirm('Please confirm deletion');"
+                       href="/post/delete?id=<?= $post['id'] ?>">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
