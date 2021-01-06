@@ -33,30 +33,41 @@ class BlogController extends Controller
     }
 
     /* Post management */
+    public function blog()
+    {
+        $this->layout = 'blog';
+        $posts = Post::findAll();
+        return $this->render('blog/index', [
+            'posts' => $posts
+        ]);
+    }
+
     public function showPost(Request $request, Response $response)
     {
+        $this->layout = 'blog';
         $comment = new Comment();
         $post = Post::findOne(['id' => $_GET['id']]);
-        $postId = $post->id;
-        $comments = Comment::findAll('updated_at', $postId);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
-            $response->redirect('/');
+            return $response->redirect('/');
         }
+        $postId = $post->id;
+        $comments = Comment::findAll('updated_at', $postId);
         if ($request->isPost()) {
             $comment->loadData($request->getBody());
             if ($comment->validate() && $comment->save(['post_id' => $postId])) {
-                Application::$app->session->setFlash('success', 'The comment will be publish when approved by an administrator');
+                Application::$app->session->setFlash(
+                    'success',
+                    'The comment will be publish when approved by an administrator');
                 $response->redirect("/post?id=$postId");
             }
-            return $this->render('post', [
+            return $this->render('blog/post', [
                 'post' => $post,
                 'model' => $comment,
                 'comments' => $comments
             ]);
         }
-
-        return $this->render('post', [
+        return $this->render('blog/post', [
             'post' => $post,
             'model' => $comment,
             'comments' => $comments
@@ -65,24 +76,28 @@ class BlogController extends Controller
 
     public function addPost(Request $request, Response $response)
     {
+        $this->layout = 'admin';
         $post = new Post();
         if ($request->isPost()) {
             $post->loadData($request->getBody());
             if ($post->validate() && $post->save()) {
-                Application::$app->session->setFlash('success', 'The post has been published successfully');
+                Application::$app->session->setFlash(
+                    'success',
+                    'The post has been published successfully');
                 Application::$app->response->redirect('/');
             }
-            return $this->render('add_post', [
+            return $this->render('blog/add_post', [
                 'model' => $post
             ]);
         }
-        return $this->render('add_post', [
+        return $this->render('blog/add_post', [
             'model' => $post
         ]);
     }
 
     public function editPost(Request $request, Response $response)
     {
+        $this->layout = 'blog';
         $post = Post::findOne(['id' => $_GET['id']]);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
@@ -97,11 +112,11 @@ class BlogController extends Controller
             if ($post->update()) {
                 Application::$app->session->setFlash('success', 'The post has been successfully updated');
             }
-            return $this->render('edit_post', [
+            return $this->render('blog/edit_post', [
                 'model' => $post
             ]);
         }
-        return $this->render('edit_post', [
+        return $this->render('blog/edit_post', [
             'model' => $post
         ]);
     }
@@ -139,7 +154,12 @@ class BlogController extends Controller
 
     public function editComment(Request $request, Response $response)
     {
+        $this->layout = 'blog';
         $comment = Comment::findOne(['id' => $_GET['id']]);
+        if (!$comment) {
+            Application::$app->session->setFlash('error', 'Not comment found with this id');
+            return $response->redirect('/');
+        }
         $currentUser = App::$app->user;
         if (!$currentUser) {
             throw new ForbiddenException();
@@ -147,9 +167,7 @@ class BlogController extends Controller
         if ($currentUser->id != $comment->user_id) {
             throw new ForbiddenException();
         }
-        if (!$comment) {
-            Application::$app->session->setFlash('error', 'Not comment found with this id');
-        }
+
         if ($request->isPost()) {
             $comment->loadData($request->getBody());
             $format = 'Y-m-d H:i:s';
@@ -162,12 +180,32 @@ class BlogController extends Controller
                 $postId = $comment->post_id;
                 $response->redirect("/post?id=$postId");
             }
-            return $this->render('edit_comment', [
+            return $this->render('blog/edit_comment', [
                 'model' => $comment
             ]);
         }
-        return $this->render('edit_comment', [
+        return $this->render('blog/edit_comment', [
             'model' => $comment
         ]);
+    }
+
+    public function deleteComment(Request $request, Response $response)
+    {
+        $comment = Comment::findOne(['id' => $_GET['id']]);
+        $currentUser = App::$app->user;
+        if (!$currentUser) {
+            throw new ForbiddenException();
+        }
+        if ($currentUser->id != $comment->user_id) {
+            throw new ForbiddenException();
+        }
+        if (!$comment) {
+            Application::$app->session->setFlash('error', 'Not comment found with this id');
+        }
+        if ($comment->delete()) {
+            Application::$app->session->setFlash('success', 'The comment has been successfully deleted');
+            $postId = $comment->post_id;
+            $response->redirect("/post?id=$postId");
+        }
     }
 }
