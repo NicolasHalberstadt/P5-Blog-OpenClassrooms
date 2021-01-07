@@ -17,7 +17,11 @@ $this->title = 'Blog'
             <?php foreach ($posts as $post) : ?>
                 <div class="col-md-4 col-lg-6 item">
                     <div class="box">
-                        <h3 class="name"><?= $post['title'] ?></h3>
+                        <h3 class="name">
+                            <a href="post?id=<?= $post['id'] ?>">
+                                <?= $post['title'] ?>
+                            </a>
+                        </h3>
                         <p class="title"><?= $post['chapo'] ?></p>
                         <p class="description">Last modified on
                             <?php $t = strtotime($post['updated_at']);
