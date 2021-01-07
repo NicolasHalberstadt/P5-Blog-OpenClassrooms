@@ -29,7 +29,7 @@ class Post extends DbModel
 
     public function attributes(): array
     {
-        return ['title', 'chapo', 'content'];
+        return ['title', 'chapo', 'content', 'user_id'];
     }
 
     public static function primaryKey(): string
@@ -43,6 +43,7 @@ class Post extends DbModel
             'title' => [self::RULE_REQUIRED],
             'chapo' => [self::RULE_REQUIRED],
             'content' => [self::RULE_REQUIRED],
+            'user_id' => [self::RULE_REQUIRED],
         ];
     }
 
@@ -52,10 +53,11 @@ class Post extends DbModel
             'title' => 'Post title',
             'chapo' => 'Chapo',
             'content' => 'Post content',
+            'user_id' => 'Author',
         ];
     }
 
-    public function save()
+    public function save(): bool
     {
         $tableName = $this->tableName();
         $attributes = $this->attributes();
