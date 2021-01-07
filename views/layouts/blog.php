@@ -33,7 +33,20 @@ use nicolashalberstadt\phpmvc\Application;
     <title><?= $this->title ?> | Nicolas Halberstadt - Symfony/PHP web developer</title>
 </head>
 <body>
-
+<div class="alert-container container fixed-bottom">
+    <?php if (Application::$app->session->getFlash('error')): ?>
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php echo Application::$app->session->getFlash('error') ?>
+        </div>
+    <?php endif; ?>
+    <?php if (Application::$app->session->getFlash('success')): ?>
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php echo Application::$app->session->getFlash('success') ?>
+        </div>
+    <?php endif; ?>
+</div>
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -96,18 +109,6 @@ use nicolashalberstadt\phpmvc\Application;
 </nav>
 
 <div class="container">
-    <div class="alert-container">
-        <?php if (Application::$app->session->getFlash('error')): ?>
-            <div class="alert alert-danger">
-                <?php echo Application::$app->session->getFlash('error') ?>
-            </div>
-        <?php endif; ?>
-        <?php if (Application::$app->session->getFlash('success')): ?>
-            <div class="alert alert-success">
-                <?php echo Application::$app->session->getFlash('success') ?>
-            </div>
-        <?php endif; ?>
-    </div>
     <header class="masthead bg-primary text-white text-center">
         <div class="d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
