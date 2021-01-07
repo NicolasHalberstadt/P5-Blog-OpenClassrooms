@@ -102,7 +102,7 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                 <?php endif;
             endforeach; ?>
             <?php if (empty($commentsList)) : ?>
-                <p>No comments on this post yet, make the first one !</p>
+                <p>No comments on this post yet, write the first one !</p>
             <?php endif; ?>
         </div>
     </div>
