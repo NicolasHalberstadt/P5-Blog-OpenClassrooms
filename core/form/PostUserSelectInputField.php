@@ -39,7 +39,7 @@ class PostUserSelectInputField extends BaseField
         $options = [];
         // remove post's author from users
         foreach ($dbUsers as $user) {
-            if ($author->id !== $user['id'] && $user['status'] != 2 && $user['type'] != 1) {
+            if ($author->id !== $user['id'] && $user['status'] = 1 && $user['type'] != 1) {
                 $users[] = $user;
             }
         }
