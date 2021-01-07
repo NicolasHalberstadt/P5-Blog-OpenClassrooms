@@ -4,6 +4,7 @@
 * Time: 10:25
 */
 
+use app\core\App;
 use nicolashalberstadt\phpmvc\Application;
 
 ?>
@@ -47,12 +48,14 @@ use nicolashalberstadt\phpmvc\Application;
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                       href="/#contact">Contact
-                        <i class="fas fa-envelope-open-text"></i>
-                    </a>
-                </li>
+                <?php if (App::isEditor()): ?>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                           href="/post/add">Add a post
+                            <i class="fas fa-pen-fancy"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                        href="/blog">Blog
@@ -60,9 +63,15 @@ use nicolashalberstadt\phpmvc\Application;
                     </a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                       href="/cv">CV
+                    <a target="_blank" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                       href="assets/img/cv.pdf">CV
                         <i class="fas fa-user-circle"></i>
+                    </a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                       href="/#contact">Contact
+                        <i class="fas fa-envelope-open-text"></i>
                     </a>
                 </li>
                 <?php if (Application::isGuest()): ?>
