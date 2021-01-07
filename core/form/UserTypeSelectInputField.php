@@ -58,37 +58,4 @@ class UserTypeSelectInputField extends BaseField
             . $options . '
                 </select>';
     }
-
-    /*public function renderInput(): string
-    {
-        $userTypes = [];
-        switch ($this->model->{$this->attribute}) {
-            case 0:
-                $userTypes = [1, 2];
-                break;
-            case 1:
-                $userTypes = [0, 2];
-                break;
-            case 2:
-                $userTypes = [0, 1];
-                break;
-        }
-        $options = [];
-        foreach ($userTypes as $type) {
-            $options[] = '<option value="$type">' . $type . '</option>';
-        }
-        $options = implode($options);
-        return sprintf(' <select name="%s" class="form-select%s">
-                                <option value="%s">%s</option>
-                                %s
-                                </select>',
-            $this->attribute,
-            $this->model->hasError($this->attribute) ? ' is-invalid' : '',
-            $this->model->{$this->attribute},
-            $this->model->{$this->attribute},
-            $options
-        );
-    }*/
-
-
 }
