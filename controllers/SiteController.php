@@ -56,10 +56,10 @@ class SiteController extends Controller
 
     public function admin()
     {
+        $this->layout = 'admin';
         $users = User::findAll();
         $posts = Post::findAll();
         $isAdmin = App::isAdmin();
-        $this->layout = 'admin';
         return $this->render('admin', [
                 'users' => $users,
                 'posts' => $posts,
@@ -70,6 +70,7 @@ class SiteController extends Controller
 
     public function editUser(Request $request, Response $response)
     {
+        $this->layout = 'admin';
         $userId = $_GET['id'];
         $user = User::findOne(['id' => $userId]);
         $userType = null;

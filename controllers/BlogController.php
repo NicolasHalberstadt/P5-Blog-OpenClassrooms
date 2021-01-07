@@ -76,7 +76,7 @@ class BlogController extends Controller
 
     public function addPost(Request $request, Response $response)
     {
-        $this->layout = 'admin';
+        $this->layout = 'blog';
         $post = new Post();
         if ($request->isPost()) {
             $post->loadData($request->getBody());
@@ -111,6 +111,7 @@ class BlogController extends Controller
             $post->updated_at = $post->updated_at->format($format);
             if ($post->update()) {
                 Application::$app->session->setFlash('success', 'The post has been successfully updated');
+                return $response->redirect("/post?id=$post->id");
             }
             return $this->render('blog/edit_post', [
                 'model' => $post
@@ -137,7 +138,6 @@ class BlogController extends Controller
     public function validateComment(Request $request, Response $response)
     {
         $comment = Comment::findOne(['id' => $_GET['id']]);
-        $currentUser = App::$app->user;
         if (!App::isEditor()) {
             throw new ForbiddenException();
         }
@@ -196,8 +196,10 @@ class BlogController extends Controller
         if (!$currentUser) {
             throw new ForbiddenException();
         }
-        if ($currentUser->id != $comment->user_id) {
-            throw new ForbiddenException();
+        if (App::isMember()) {
+            if ($currentUser->id != $comment->user_id) {
+                throw new ForbiddenException();
+            }
         }
         if (!$comment) {
             Application::$app->session->setFlash('error', 'Not comment found with this id');
