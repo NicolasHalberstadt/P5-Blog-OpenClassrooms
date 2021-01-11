@@ -6,8 +6,6 @@
 
 namespace app\models;
 
-use nicolashalberstadt\phpmvc\DbModel;
-use nicolashalberstadt\phpmvc\Model;
 use nicolashalberstadt\phpmvc\UserModel;
 
 /**
@@ -90,9 +88,17 @@ class User extends UserModel
         ];
     }
 
-
     public function getDisplayName(): string
     {
         return $this->firstname . ' ' . $this->lastname;
     }
+
+    public static function findRecent(int $limit): array
+    {
+        $tableName = static::tableName();
+        $statement = self::prepare("SELECT * FROM $tableName WHERE users.status != 2 ORDER BY created_at DESC LIMIT $limit");
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
 }

@@ -126,7 +126,37 @@ use nicolashalberstadt\phpmvc\Application;
                 welcome to the admin panel</p>
         </div>
     </header>
-    {{content}}
+    <?php $currentPage = $_SERVER['REQUEST_URI']; ?>
+    <div class="admin">
+        <nav class="admin-nav">
+            <?php if (App::isAdmin()) :
+                $links = [
+                    'Admin' => '/admin',
+                    'Users' => '/admin/users',
+                    'Posts' => '/admin/posts',
+                ];
+            elseif (App::isEditor()) :
+                $links = [
+                    'Admin' => '/admin',
+                    'Posts' => '/admin/posts',
+                ];
+            endif; ?>
+            <ul class="nav flex-column">
+                <?php foreach ($links as $link => $href) :
+                    if ($currentPage == $href) :?>
+                        <li class="nav-item active">
+                    <?php else : ?>
+                        <li class="nav-item">
+                    <?php endif; ?>
+                    <a class="nav-link"
+                       href=<?= $href ?>><?= $link ?>
+                    </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+        {{content}}
+    </div>
 </div>
 <footer class="footer text-center">
     <div class="container">

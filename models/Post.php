@@ -6,9 +6,7 @@
 
 namespace app\models;
 
-use nicolashalberstadt\phpmvc\Application;
 use nicolashalberstadt\phpmvc\db\DbModel;
-use PDOException;
 
 /**
  * Class Post
@@ -21,6 +19,8 @@ class Post extends DbModel
     public string $title = '';
     public string $chapo = '';
     public string $content = '';
+    public string $user_id = '';
+    public $updated_at;
 
     public static function tableName(): string
     {
@@ -29,7 +29,7 @@ class Post extends DbModel
 
     public function attributes(): array
     {
-        return ['title', 'chapo', 'content', 'user_id'];
+        return ['title', 'chapo', 'content', 'user_id', 'updated_at'];
     }
 
     public static function primaryKey(): string
@@ -43,7 +43,6 @@ class Post extends DbModel
             'title' => [self::RULE_REQUIRED],
             'chapo' => [self::RULE_REQUIRED],
             'content' => [self::RULE_REQUIRED],
-            'user_id' => [self::RULE_REQUIRED],
         ];
     }
 
@@ -57,20 +56,11 @@ class Post extends DbModel
         ];
     }
 
-    public function save(): bool
+    public static function findRecent(int $limit): array
     {
-        $tableName = $this->tableName();
-        $attributes = $this->attributes();
-        $params = array_map(fn($attr) => ":$attr", $attributes);
-        $userId = Application::$app->user->id;
-        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes)
-            . ",user_id)
-             VALUES(" . implode(',', $params)
-            . ", (SELECT id FROM users WHERE users.id = $userId))");
-        foreach ($attributes as $attribute) {
-            $statement->bindValue(":$attribute", $this->{$attribute});
-        }
+        $tableName = static::tableName();
+        $statement = self::prepare("SELECT * FROM $tableName ORDER BY created_at DESC LIMIT $limit");
         $statement->execute();
-        return true;
+        return $statement->fetchAll();
     }
 }
