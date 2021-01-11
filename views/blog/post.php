@@ -61,25 +61,25 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                     ?>
                     <div class="comment">
                         <p><?= $comment['content'] ?></p>
-                        <p><small class="text-muted">By
+                        <p>
+                            <small class="text-muted">By
                                 <?= User::findOne(['id' => $comment['user_id']])->getDisplayName(); ?>
-                            </small></p>
-                        <?php if (App::$app->user) :
-                            if (App::$app->user->id === $comment['user_id']) : ?>
-                                <a class="option-edit"
-                                   href="/comment/edit?id=<?= $comment['id'] ?>">
-                                    Edit my comment
-                                    <i class="far fa-edit"></i>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (App::$app->user->id === $comment['user_id'] || App::isEditor()) : ?>
-                            <a onClick="javascript: return confirm('Please confirm deletion');"
-                               class="option-delete"
-                               href="/comment/delete?id=<?= $comment['id'] ?>">
-                                Delete
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        <?php endif ?>
+                            </small>
+                        </p>
+                        <?php if (App::$app->user) : ?>
+                            <div class="item-options-btn edit-delete">
+                                <?php if (App::$app->user->id === $comment['user_id']) : ?>
+                                    <a class="comment-edit option-edit btn btn-primary"
+                                       href="/comment/edit?id=<?= $comment['id'] ?>">Edit my comment
+                                    </a>
+                                <?php endif; ?>
+                                <?php if (App::$app->user->id === $comment['user_id'] || App::isEditor()) : ?>
+                                    <a class="option-delete btn btn-danger"
+                                       onClick="javascript: return confirm('Please confirm deletion');"
+                                       href="/comment/delete?id=<?= $comment['id'] ?>">Delete
+                                    </a>
+                                <?php endif ?>
+                            </div>
                         <?php endif ?>
                     </div>
                 <?php elseif ($comment['validated'] != 1 && App::isEditor()): ?>
@@ -88,16 +88,15 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                         <p><small class="text-muted">By
                                 <?= User::findOne(['id' => $comment['user_id']])->getDisplayName(); ?>
                             </small></p>
-                        <a class="comment-validate" href="/comment/validate?id=<?= $comment['id'] ?>">
-                            Validate comment
-                            <i class="fas fa-check-double"></i>
-                        </a>
-                        <a onClick="javascript: return confirm('Please confirm deletion');"
-                           class="comment-delete"
-                           href="/comment/delete?id=<?= $comment['id'] ?>">
-                            Delete comment
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
+                        <div class="item-options-btn">
+                            <a class="comment-validate option-validate btn btn-primary"
+                               href="/comment/validate?id=<?= $comment['id'] ?>">Validate
+                            </a>
+                            <a class="option-delete btn btn-danger"
+                               onClick="javascript: return confirm('Please confirm deletion');"
+                               href="/comment/delete?id=<?= $comment['id'] ?>">Delete
+                            </a>
+                        </div>
                     </div>
                 <?php endif;
             endforeach; ?>
