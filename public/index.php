@@ -4,6 +4,7 @@
 * Time: 09:08
 */
 
+use app\controllers\AdminController;
 use app\controllers\AuthController;
 use app\controllers\BlogController;
 use app\controllers\SiteController;
@@ -31,11 +32,13 @@ $app->router->post('/', [SiteController::class, 'home']);
 $app->router->get('/cv', [SiteController::class, 'cv']);
 
 // Admin
-$app->router->get('/admin', [SiteController::class, 'admin']);
-$app->router->get('/user/edit', [SiteController::class, 'editUser']);
-$app->router->post('/user/edit', [SiteController::class, 'editUser']);
-$app->router->get('/user/delete', [SiteController::class, 'deleteUser']);
-$app->router->post('/user/delete', [SiteController::class, 'deleteUser']);
+$app->router->get('/admin', [AdminController::class, 'index']);
+$app->router->get('/admin/posts', [AdminController::class, 'adminPosts']);
+$app->router->get('/admin/users', [AdminController::class, 'adminUsers']);
+$app->router->get('/user/edit', [AdminController::class, 'editUser']);
+$app->router->post('/user/edit', [AdminController::class, 'editUser']);
+$app->router->get('/user/delete', [AdminController::class, 'deleteUser']);
+$app->router->post('/user/delete', [AdminController::class, 'deleteUser']);
 
 // Auth
 $app->router->get('/login', [AuthController::class, 'login']);
