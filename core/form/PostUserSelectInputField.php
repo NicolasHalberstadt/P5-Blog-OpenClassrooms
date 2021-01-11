@@ -6,6 +6,7 @@
 
 namespace app\core\form;
 
+use app\core\App;
 use app\models\User;
 use nicolashalberstadt\phpmvc\form\BaseField;
 use nicolashalberstadt\phpmvc\Model;
@@ -32,6 +33,9 @@ class PostUserSelectInputField extends BaseField
     public function renderInput(): string
     {
         $author = User::findOne(['id' => $this->model->{$this->attribute}]);
+        if (!$author) {
+            $author = User::findOne(['id' => App::$app->user->id]);
+        }
         $authorId = $author->id;
         $authorName = $author->getDisplayName();
         $dbUsers = User::findAll();
