@@ -25,12 +25,6 @@ use app\models\ContactForm;
  */
 class SiteController extends Controller
 {
-    public function __construct()
-    {
-        $this->registerMiddleware(new EditorMiddleware(['admin']));
-        $this->registerMiddleware(new AdminMiddleware(['deleteUser']));
-    }
-
     // handling contact form on the home page
     public function home(Request $request, Response $response)
     {
@@ -47,97 +41,5 @@ class SiteController extends Controller
             'model' => $contact,
             'posts' => $posts
         ]);
-    }
-
-    public function cv()
-    {
-        return $this->render('cv');
-    }
-
-    public function admin()
-    {
-        $this->layout = 'admin';
-        $users = User::findAll();
-        $posts = Post::findAll();
-        $isAdmin = App::isAdmin();
-        return $this->render('admin', [
-                'users' => $users,
-                'posts' => $posts,
-                'isAdmin' => $isAdmin
-            ]
-        );
-    }
-
-    public function editUser(Request $request, Response $response)
-    {
-        $this->layout = 'admin';
-        $userId = $_GET['id'];
-        $user = User::findOne(['id' => $userId]);
-        $userType = null;
-        $userStatus = null;
-        // changing userType and userStatus int into string for display
-        switch ($user->type) {
-            case 1:
-                $userType = 'Member';
-                break;
-            case 2:
-                $userType = 'Editor';
-                break;
-            case 3:
-                $userType = 'Admin';
-                break;
-        }
-        switch ($user->status) {
-            case 0:
-                $userStatus = 'Inactive';
-                break;
-            case 1:
-                $userStatus = 'Active';
-                break;
-            case 2:
-                $userStatus = 'Deleted';
-                break;
-        }
-        if (!$user) {
-            Application::$app->session->setFlash('error', 'No user with this id exists');
-            $response->redirect('/admin');
-        }
-        if ($request->isPost()) {
-            $user->loadData($request->getBody());
-            if ($user->update()) {
-                Application::$app->session->setFlash('success', 'The user has been successfully updated');
-                $response->redirect('/admin');
-            }
-            return $this->render('edit_user', [
-                'userType' => $userType,
-                'userStatus' => $userStatus,
-                'model' => $user
-            ]);
-        }
-        return $this->render('edit_user', [
-            'userType' => $userType,
-            'userStatus' => $userStatus,
-            'model' => $user
-        ]);
-    }
-
-    public function deleteUser(Response $response)
-    {
-        $user = User::findOne(['id' => $_GET['id']]);
-        if (!$user) {
-            Application::$app->session->setFlash('error', 'No user with this id exists in the database');
-            $response->redirect('/admin');
-        }
-        // make all of user's data empty to avoid post deletion
-        $user->firstname = 'member';
-        $user->lastname = '';
-        $user->email = '';
-        $user->status = 2;
-        $user->type = 1;
-        $user->password = '';
-        if ($user->update()) {
-            Application::$app->session->setFlash('success', 'The user has been successfully deleted');
-            $response->redirect('/admin');
-        }
     }
 }
