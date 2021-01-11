@@ -275,7 +275,6 @@ hr {
 }
 
 @media (max-width: 767px) {
-
   .table-container {
 	padding-left: 1em;
   }
@@ -319,7 +318,7 @@ hr {
 
 .presentation-container {
   padding: 2em 2em;
-  background-color: #baddd3;
+  background-color: #BADDD3;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
@@ -331,7 +330,7 @@ hr {
 }
 
 .presentation h2 {
-  color: #5a6963;
+  color: #5A6963;
 }
 
 .presentation p {
@@ -351,7 +350,7 @@ hr {
 
 .post-container {
   padding: 4em;
-  background-color: #a2dbce;
+  background-color: #A2DBCE;
 }
 
 .post {
@@ -365,11 +364,11 @@ hr {
   padding-bottom: 1em;
   font-size: xx-large;
   text-transform: uppercase;
-  color: #81918c;
+  color: #81918C;
 }
 
 .post h4 {
-  color: #47515a;
+  color: #47515A;
   font-size: larger;
   padding-bottom: 4em;
 }
@@ -385,7 +384,7 @@ hr {
 
 .post .small-text {
   font-size: medium;
-  color: #57656e;
+  color: #57656E;
 }
 
 .comments-form-container {
@@ -514,11 +513,11 @@ a:hover {
 /* Card template */
 .team-boxed {
   color: #313437;
-  background-color: #eef4f7;
+  background-color: #EEF4F7;
 }
 
 .team-boxed p {
-  color: #7d8285;
+  color: #7D8285;
 }
 
 .team-boxed h2 {
@@ -558,7 +557,7 @@ a:hover {
 .team-boxed .item .box {
   text-align: center;
   padding: 30px;
-  background-color: #fff;
+  background-color: #FFF;
   margin-bottom: 30px;
   border-radius: 15px;
   height: calc(100% - 30px) !important;
@@ -575,7 +574,7 @@ a:hover {
 .team-boxed .item .title {
   font-weight: bold;
   margin: 1em;
-  color: #d0d0d0;
+  color: #D0D0D0;
   letter-spacing: 2px;
   font-size: 13px;
   height: 130px;
@@ -597,7 +596,7 @@ a:hover {
 
 .team-boxed .social {
   font-size: 18px;
-  color: #a2a8ae;
+  color: #A2A8AE;
 }
 
 .team-boxed .social a {
