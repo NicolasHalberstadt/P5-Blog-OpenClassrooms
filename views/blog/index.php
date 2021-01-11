@@ -23,9 +23,18 @@ $this->title = 'Blog'
                             </a>
                         </h3>
                         <p class="title"><?= $post['chapo'] ?></p>
-                        <p class="description">Last modified on
-                            <?php $t = strtotime($post['updated_at']);
-                            echo date('F jS Y', $t); ?></p>
+                        <p class="description">
+                            <?php
+                            if ($post['updated_at'] !== null) :
+                                $t = strtotime($post['updated_at']); ?>
+                                Last modified on
+                            <?php else :
+                                $t = strtotime($post['created_at']); ?>
+                                Created on
+                            <?php endif;
+                            echo date('F jS Y', $t); ?>
+                        </p>
+
                         <div class="social">
                             <a href="post?id=<?= $post['id'] ?>">
                                 <i class="fab fa-readme"></i>
