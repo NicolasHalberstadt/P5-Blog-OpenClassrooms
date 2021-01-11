@@ -6,6 +6,7 @@
 
 /**@var $model \app\models\Post */
 
+use app\core\form\PostUserSelectInputField;
 use nicolashalberstadt\phpmvc\form\TextareaField;
 
 $this->title = 'Add blog post';
@@ -18,6 +19,7 @@ $this->title = 'Add blog post';
         <?php echo $form->field($model, 'title') ?>
         <?php echo $form->field($model, 'chapo') ?>
         <?php echo new TextareaField($model, 'content') ?>
+        <?php echo new PostUserSelectInputField($model, 'user_id') ?>
 
         <button type="submit" class="btn btn-primary">Submit</button>
 
