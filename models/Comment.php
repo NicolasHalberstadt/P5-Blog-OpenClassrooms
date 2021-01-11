@@ -78,4 +78,13 @@ ORDER BY $orderBy DESC");
         $statement->execute();
         return $statement->fetchAll();
     }
+
+
+    public static function findInvalid(): array
+    {
+        $tableName = static::tableName();
+        $statement = self::prepare("SELECT * FROM $tableName WHERE validated = 0 ORDER BY created_at DESC");
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }
