@@ -7,6 +7,7 @@
 /**@var $posts \app\models\Post */
 
 use app\models\User;
+
 $this->title = 'Admin panel - Posts';
 ?>
 <!-- Posts table -->
@@ -27,15 +28,15 @@ $this->title = 'Admin panel - Posts';
             <tr>
                 <th scope="row"><?= $post['id'] ?></th>
                 <td><?= $post['title'] ?></td>
-                <td><?php $t = strtotime($post['created_at']);
-                    echo date('d-m-Y', $t); ?></td>
+                <td><?php $t = strtotime($post['created_at']); ?>
+                    <?= date('d-m-Y', $t); ?></td>
                 <td><?php
-                    if ($post['updated_at'] !== null) {
-                        $t = strtotime($post['updated_at']);
-                        echo date('d-m-Y', $t);
-                    } else {
-                        echo 'Undefined';
-                    } ?>
+                    if ($post['updated_at'] !== null) :
+                        $t = strtotime($post['updated_at']); ?>
+                        <?= date('d-m-Y', $t); ?>
+                    <?php else : ?>
+                        <?= 'Undefined'; ?>
+                    <?php endif; ?>
                 </td>
                 <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
 

@@ -57,8 +57,8 @@ $latestPostsClass = '';
                                        href="/user/delete?id=<?= $user['id'] ?>">Delete</a>
                                 </div>
                                 <div class="item-date">
-                                    <p><?php $t = strtotime($user['created_at']);
-                                        echo date('jS M, Y', $t); ?></p>
+                                    <p><?php $t = strtotime($user['created_at']);?>
+                                        <?= date('jS M, Y', $t); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -92,8 +92,8 @@ $latestPostsClass = '';
                             </a>
                         </div>
                         <div class="item-date">
-                            <p><?php $t = strtotime($post['created_at']);
-                                echo date('jS M, Y', $t); ?></p>
+                            <p><?php $t = strtotime($post['created_at']);?>
+                                <?= date('jS M, Y', $t); ?></p>
                         </div>
                     </div>
                 </div>
@@ -114,8 +114,8 @@ $latestPostsClass = '';
             <p>Content : "<?= $comment['content'] ?>"
                 <br>
                 <br>
-                Posted on <?php $t = strtotime($comment['created_at']);
-                echo date('jS M, Y', $t); ?>
+                Posted on <?php $t = strtotime($comment['created_at']);?>
+                <?= date('jS M, Y', $t); ?>
                 on post number
                 <a href="/post?id=<?= $comment['post_id'] ?>">
                     <?= $comment['post_id'] ?>

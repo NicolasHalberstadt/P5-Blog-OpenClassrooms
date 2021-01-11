@@ -22,8 +22,8 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
         <h4 class="post-chapo text-center"><?= $post->chapo ?></h4>
         <p class="post-content"><?= $post->content ?></p>
         <p class="small-text">Written the
-            <?php $t = strtotime($post->created_at);
-            echo date('F jS Y', $t); ?>
+            <?php $t = strtotime($post->created_at);?>
+            <?= date('F jS Y', $t); ?>
             by
             <?= User::findOne(['id' => $post->user_id])->getDisplayName() ?>
         </p>

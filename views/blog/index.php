@@ -31,8 +31,8 @@ $this->title = 'Blog'
                             <?php else :
                                 $t = strtotime($post['created_at']); ?>
                                 Created on
-                            <?php endif;
-                            echo date('F jS Y', $t); ?>
+                            <?php endif;?>
+                            <?= date('F jS Y', $t); ?>
                         </p>
 
                         <div class="social">
