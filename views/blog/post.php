@@ -45,7 +45,7 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                     administrator</p>
                 <div class="form">
                     <?php Form::begin('', 'post'); ?>
-                    <?php echo new TextareaField($model, 'content') ?>
+                    <?=  new TextareaField($model, 'content') ?>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <?php Form::end(); ?>
                 </div>

@@ -38,13 +38,13 @@ use nicolashalberstadt\phpmvc\Application;
     <?php if (Application::$app->session->getFlash('error')): ?>
         <div class="alert alert-danger alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?php echo Application::$app->session->getFlash('error') ?>
+            <?=  Application::$app->session->getFlash('error') ?>
         </div>
     <?php endif; ?>
     <?php if (Application::$app->session->getFlash('success')): ?>
         <div class="alert alert-success alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?php echo Application::$app->session->getFlash('success') ?>
+            <?=  Application::$app->session->getFlash('success') ?>
         </div>
     <?php endif; ?>
 </div>

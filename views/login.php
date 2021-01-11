@@ -6,8 +6,8 @@ $this->title = 'Login';
     <h3 class="text-center">Login</h3>
     <div class="form">
         <?php $form = nicolashalberstadt\phpmvc\form\Form::begin('', 'post') ?>
-        <?php echo $form->field($model, 'email') ?>
-        <?php echo $form->field($model, 'password')->passwordField() ?>
+        <?=  $form->field($model, 'email') ?>
+        <?=  $form->field($model, 'password')->passwordField() ?>
 
         <button type="submit" class="btn btn-primary">Submit</button>
 

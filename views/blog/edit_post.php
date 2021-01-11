@@ -19,10 +19,10 @@ $this->title = 'Edit post';
     <div class="form">
         <?php $form = Form::begin('', 'post') ?>
 
-        <?php echo $form->field($model, 'title') ?>
-        <?php echo $form->field($model, 'chapo') ?>
-        <?php echo new TextareaField($model, 'content') ?>
-        <?php echo new PostUserSelectInputField($model, 'user_id') ?>
+        <?=  $form->field($model, 'title') ?>
+        <?=  $form->field($model, 'chapo') ?>
+        <?=  new TextareaField($model, 'content') ?>
+        <?=  new PostUserSelectInputField($model, 'user_id') ?>
         <button type="submit" class="btn btn-primary">Save</button>
 
         <?php \nicolashalberstadt\phpmvc\form\Form::end() ?>

@@ -17,7 +17,7 @@ $this->title = 'Edit comment';
     <h3 class="text-center">Edit comment</h3>
     <div class="form">
         <?php $form = Form::begin('', 'post') ?>
-        <?php echo new TextareaField($model, 'content') ?>
+        <?=  new TextareaField($model, 'content') ?>
         <button type="submit" class="btn btn-primary">Save</button>
 
         <?php \nicolashalberstadt\phpmvc\form\Form::end() ?>
