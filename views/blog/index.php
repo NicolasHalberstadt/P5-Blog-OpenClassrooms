@@ -1,6 +1,6 @@
 <?php
 /* User: nicolashalberstadt 
-* Date: 02/01/2021 
+* Date: 02/01/2021
 * Time: 19:34
 */
 
@@ -18,11 +18,11 @@ $this->title = 'Blog'
                 <div class="col-md-4 col-lg-6 item">
                     <div class="box">
                         <h3 class="name">
-                            <a href="post?id=<?= $post['id'] ?>">
-                                <?= $post['title'] ?>
+                            <a href="post?id=<?= $this->clean($post['id']) ?>">
+                                <?= $this->clean($post['title']) ?>
                             </a>
                         </h3>
-                        <p class="title"><?= $post['chapo'] ?></p>
+                        <p class="title"><?= $this->clean(['chapo']) ?></p>
                         <p class="description">
                             <?php
                             if ($post['updated_at'] !== null) :
@@ -32,19 +32,19 @@ $this->title = 'Blog'
                                 $t = strtotime($post['created_at']); ?>
                                 Created on
                             <?php endif;?>
-                            <?= date('F jS Y', $t); ?>
+                            <?= $this->clean(date('F jS Y', $t)); ?>
                         </p>
 
                         <div class="social">
                             <a href="post?id=<?= $post['id'] ?>">
                                 <i class="fab fa-readme"></i>
                             </a>
-                            <?php if (App::isEditor()): ?>
-                                <a href="post/edit?id=<?= $post['id'] ?>">
+                            <?php if (App::isEditor()) : ?>
+                                <a href="post/edit?id=<?= $this->clean($post['id']) ?>">
                                     <i class="far fa-edit"></i>
                                 </a>
                                 <a onClick="javascript: return confirm('Please confirm deletion');"
-                                   href="post/delete?id=<?= $post['id'] ?>">
+                                   href="post/delete?id=<?= $this->clean($post['id']) ?>">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             <?php endif; ?>
