@@ -28,6 +28,7 @@ class BlogController extends Controller
     
     private Post $post;
     private Comment $comment;
+    private DateTime $datetime;
     
     public function __construct()
     {
@@ -38,6 +39,7 @@ class BlogController extends Controller
         
         $this->post = new Post();
         $this->comment = new Comment();
+        $this->datetime = new DateTime();
     }
     
     /* Post management */
@@ -117,7 +119,7 @@ class BlogController extends Controller
             $post->loadData($request->getBody());
             $format = 'Y-m-d H:i:s';
             $currentDate = date($format);
-            $post->updated_at = DateTime::createFromFormat($format, $currentDate);
+            $post->updated_at = $this->datetime::createFromFormat($format, $currentDate);
             $post->updated_at = $post->updated_at->format($format);
             if ($post->update()) {
                 Application::$app->session->setFlash('success', 'The post has been successfully updated');
@@ -182,7 +184,7 @@ class BlogController extends Controller
             $comment->loadData($request->getBody());
             $format = 'Y-m-d H:i:s';
             $currentDate = date($format);
-            $comment->updated_at = DateTime::createFromFormat($format, $currentDate);
+            $comment->updated_at = $this->datetime::createFromFormat($format, $currentDate);
             $comment->updated_at = $comment->updated_at->format($format);
             $comment->validated = 0;
             if ($comment->update()) {
