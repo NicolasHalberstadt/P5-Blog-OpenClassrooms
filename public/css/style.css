@@ -39,12 +39,12 @@ hr {
 .admin-nav {
   width: 15%;
   background-color: white;
-  color: #18BC9B;
+  color: #18bc9b;
   font-size: large;
 }
 
 .admin-nav .active {
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
 }
 
 
@@ -59,7 +59,7 @@ hr {
 }
 
 .latest {
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
 }
 
 .item-info {
@@ -100,7 +100,7 @@ hr {
 
 .latest-title {
   padding: 1em 2em 1em;
-  color: #2B3E50;
+  color: #2b3e50;
   font-size: large;
 }
 
@@ -135,7 +135,7 @@ hr {
 .invalid-comments {
   width: calc(100% - 15%);
   margin-left: 15%;
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
   padding-bottom: 1em;
 }
 
@@ -234,7 +234,7 @@ hr {
 }
 
 .table-container {
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
   padding: 0 0 2em;
   width: calc(100% - 15%);
   max-height: 500px;
@@ -259,7 +259,7 @@ hr {
 
 .form-container {
   padding: 1em 4em;
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
   border-radius: 15px;
   margin-top: 1em;
 }
@@ -318,7 +318,7 @@ hr {
 
 .presentation-container {
   padding: 2em 2em;
-  background-color: #BADDD3;
+  background-color: #baddd3;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
@@ -330,7 +330,7 @@ hr {
 }
 
 .presentation h2 {
-  color: #5A6963;
+  color: #5a6963;
 }
 
 .presentation p {
@@ -350,7 +350,7 @@ hr {
 
 .post-container {
   padding: 4em;
-  background-color: #A2DBCE;
+  background-color: #a2dbce;
 }
 
 .post {
@@ -364,11 +364,11 @@ hr {
   padding-bottom: 1em;
   font-size: xx-large;
   text-transform: uppercase;
-  color: #81918C;
+  color: #81918c;
 }
 
 .post h4 {
-  color: #47515A;
+  color: #47515a;
   font-size: larger;
   padding-bottom: 4em;
 }
@@ -384,7 +384,7 @@ hr {
 
 .post .small-text {
   font-size: medium;
-  color: #57656E;
+  color: #57656e;
 }
 
 .comments-form-container {
@@ -393,7 +393,7 @@ hr {
 
 
 .comments-container {
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
   padding: 4em;
   border-radius: 0 0 15px 15px;
 }
@@ -443,7 +443,7 @@ hr {
 
 /* error page */
 .mainbox {
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
   margin: auto;
   height: 600px;
 
@@ -513,11 +513,11 @@ a:hover {
 /* Card template */
 .team-boxed {
   color: #313437;
-  background-color: #EEF4F7;
+  background-color: #eef4f7;
 }
 
 .team-boxed p {
-  color: #7D8285;
+  color: #7d8285;
 }
 
 .team-boxed h2 {
@@ -557,7 +557,7 @@ a:hover {
 .team-boxed .item .box {
   text-align: center;
   padding: 30px;
-  background-color: #FFF;
+  background-color: #fff;
   margin-bottom: 30px;
   border-radius: 15px;
   height: calc(100% - 30px) !important;
@@ -574,13 +574,13 @@ a:hover {
 .team-boxed .item .title {
   font-weight: bold;
   margin: 1em;
-  color: #D0D0D0;
+  color: #d0d0d0;
   letter-spacing: 2px;
   font-size: 13px;
   height: 130px;
 }
 
-.team-boxed .item .title:first-letter {
+.team-boxed .item .title::first-letter {
   text-transform: capitalize;
 }
 
@@ -596,7 +596,7 @@ a:hover {
 
 .team-boxed .social {
   font-size: 18px;
-  color: #A2A8AE;
+  color: #a2a8ae;
 }
 
 .team-boxed .social a {
