@@ -22,7 +22,7 @@ $this->title = 'Blog'
                                 <?= $this->clean($post['title']) ?>
                             </a>
                         </h3>
-                        <p class="title"><?= $this->clean(['chapo']) ?></p>
+                        <p class="title"><?= $this->clean($post['chapo']) ?></p>
                         <p class="description">
                             <?php
                             if ($post['updated_at'] !== null) :

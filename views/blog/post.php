@@ -22,12 +22,12 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
         <h4 class="post-chapo text-center"><?= $post->chapo ?></h4>
         <p class="post-content"><?= $post->content ?></p>
         <p class="small-text">Written the
-            <?php $t = strtotime($post->created_at);?>
+            <?php $t = strtotime($post->created_at); ?>
             <?= date('F jS Y', $t); ?>
             by
             <?= User::findOne(['id' => $post->user_id])->getDisplayName() ?>
         </p>
-
+        
         <?php if (App::isEditor()) : ?>
             <a class="btn btn-info" href="/post/edit?id=<?= $post->id ?>">Edit Post</a>
         <?php endif; ?>
@@ -45,7 +45,7 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                     administrator</p>
                 <div class="form">
                     <?php Form::begin('', 'post'); ?>
-                    <?=  new TextareaField($model, 'content') ?>
+                    <?= new TextareaField($model, 'content') ?>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <?php Form::end(); ?>
                 </div>
@@ -56,7 +56,7 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
         <!-- Comments display -->
         <div class="comments-container">
             <?php foreach ($comments as $comment) :
-                if ($comment['validated'] == 1):
+                if ($comment['validated'] == 1) :
                     $commentsList[] = $comment;
                     ?>
                     <div class="comment">
@@ -82,9 +82,9 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                             </div>
                         <?php endif ?>
                     </div>
-                <?php elseif ($comment['validated'] != 1 && App::isEditor()): ?>
+                <?php elseif ($comment['validated'] != 1 && App::isEditor()) : ?>
                     <div class="comment">
-                        <p class="" style="color:red;"><?= $comment['content'] ?> </p>
+                        <p><?= $comment['content'] ?> </p>
                         <p><small class="text-muted">By
                                 <?= User::findOne(['id' => $comment['user_id']])->getDisplayName(); ?>
                             </small></p>
