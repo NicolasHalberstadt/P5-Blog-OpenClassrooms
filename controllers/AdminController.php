@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 07/01/2021 
+/* User: nicolashalberstadt
+* Date: 07/01/2021
 * Time: 19:05
 */
 
@@ -25,7 +25,11 @@ use nicolashalberstadt\phpmvc\Response;
  */
 class AdminController extends Controller
 {
-
+    
+    private Post $post;
+    private User $user;
+    private Comment $comment;
+    
     public function __construct()
     {
         $this->registerMiddleware(new EditorMiddleware(['index']));
@@ -33,72 +37,53 @@ class AdminController extends Controller
         $this->registerMiddleware(new AdminMiddleware(['adminUsers']));
         $this->registerMiddleware(new AdminMiddleware(['editUsers']));
         $this->registerMiddleware(new AdminMiddleware(['deleteUser']));
+        
+        $this->user = new User();
+        $this->post = new Post();
+        $this->comment = new Comment();
     }
-
+    
     public function index()
     {
         $this->layout = 'admin';
-        $recentUsers = User::findRecent(3);
-        $recentPosts = Post::findRecent(3);
-        $invalidComments = Comment::findInvalid();
+        $recentUsers = $this->user::findRecent(3);
+        $recentPosts = $this->post::findRecent(3);
+        $invalidComments = $this->comment::findInvalid();
         $isAdmin = App::isAdmin();
         return $this->render('/admin/index', [
-                'recentUsers' => $recentUsers,
-                'recentPosts' => $recentPosts,
-                'invalidComments' => $invalidComments,
-                'isAdmin' => $isAdmin
-            ]
-        );
+            'recentUsers' => $recentUsers,
+            'recentPosts' => $recentPosts,
+            'invalidComments' => $invalidComments,
+            'isAdmin' => $isAdmin
+        ]);
     }
-
+    
     public function adminUsers()
     {
         $this->layout = 'admin';
-        $users = User::findAll();
+        $users = $this->user::findAll();
         return $this->render('admin/users', [
             'users' => $users
         ]);
     }
-
+    
     public function adminPosts()
     {
         $this->layout = 'admin';
-        $posts = Post::findAll();
+        $posts = $this->post::findAll();
         return $this->render('admin/posts', [
             'posts' => $posts
         ]);
     }
-
+    
     public function editUser(Request $request, Response $response)
     {
         $this->layout = 'admin';
-        $userId = $_GET['id'];
-        $user = User::findOne(['id' => $userId]);
-        $userType = null;
-        $userStatus = null;
+        $userId = isset($_GET['id']) ?? null;
+        $user = $this->user::findOne(['id' => $userId]);
+        $userType = $this->userType($user);
+        $userStatus = $this->userStatus($user);
         // changing userType and userStatus int into string for display
-        switch ($user->type) {
-            case 1:
-                $userType = 'Member';
-                break;
-            case 2:
-                $userType = 'Editor';
-                break;
-            case 3:
-                $userType = 'Admin';
-                break;
-        }
-        switch ($user->status) {
-            case 0:
-                $userStatus = 'Inactive';
-                break;
-            case 1:
-                $userStatus = 'Active';
-                break;
-            case 2:
-                $userStatus = 'Deleted';
-                break;
-        }
         if (!$user) {
             Application::$app->session->setFlash('error', 'No user with this id exists');
             $response->redirect('/admin');
@@ -121,10 +106,11 @@ class AdminController extends Controller
             'model' => $user
         ]);
     }
-
+    
     public function deleteUser(Response $response)
     {
-        $user = User::findOne(['id' => $_GET['id']]);
+        $userId = isset($_GET['id']) ?? null;
+        $user = $this->user::findOne(['id' => $userId]);
         if (!$user) {
             Application::$app->session->setFlash('error', 'No user with this id exists in the database');
             $response->redirect('/admin');
@@ -140,5 +126,39 @@ class AdminController extends Controller
             Application::$app->session->setFlash('success', 'The user has been successfully deleted');
             $response->redirect('/admin');
         }
+    }
+    
+    private function userType($user): string
+    {
+        $userType = '';
+        switch ($user->type) {
+            case 1:
+                $userType = 'Member';
+                break;
+            case 2:
+                $userType = 'Editor';
+                break;
+            case 3:
+                $userType = 'Admin';
+                break;
+        }
+        return $userType;
+    }
+    
+    private function userStatus($user): string
+    {
+        $userStatus = '';
+        switch ($user->status) {
+            case 0:
+                $userStatus = 'Inactive';
+                break;
+            case 1:
+                $userStatus = 'Active';
+                break;
+            case 2:
+                $userStatus = 'Deleted';
+                break;
+        }
+        return $userStatus;
     }
 }
