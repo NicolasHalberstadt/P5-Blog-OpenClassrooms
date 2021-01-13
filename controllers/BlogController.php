@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 22/12/2020 
+/* User: nicolashalberstadt
+* Date: 22/12/2020
 * Time: 11:29
 */
 
@@ -10,6 +10,7 @@ use app\core\App;
 use app\middlewares\EditorMiddleware;
 use app\models\Comment;
 use app\models\Post;
+use DateTime;
 use nicolashalberstadt\phpmvc\Application;
 use nicolashalberstadt\phpmvc\Controller;
 use nicolashalberstadt\phpmvc\exceptions\ForbiddenException;
@@ -24,41 +25,49 @@ use nicolashalberstadt\phpmvc\Response;
  */
 class BlogController extends Controller
 {
+    
+    private Post $post;
+    private Comment $comment;
+    
     public function __construct()
     {
         $this->registerMiddleware(new EditorMiddleware(['addPost']));
         $this->registerMiddleware(new EditorMiddleware(['editPost']));
         $this->registerMiddleware(new EditorMiddleware(['deletePost']));
         $this->registerMiddleware(new EditorMiddleware(['validateComment']));
+        
+        $this->post = new Post();
+        $this->comment = new Comment();
     }
-
+    
     /* Post management */
     public function blog()
     {
         $this->layout = 'blog';
-        $posts = Post::findAll();
+        $posts = $this->post::findAll();
         return $this->render('blog/index', [
             'posts' => $posts
         ]);
     }
-
+    
     public function showPost(Request $request, Response $response)
     {
         $this->layout = 'blog';
         $comment = new Comment();
-        $post = Post::findOne(['id' => $_GET['id']]);
+        $post = $this->post::findOne(['id' => $request->get['id']]);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
             return $response->redirect('/');
         }
         $postId = $post->id;
-        $comments = Comment::findAll('updated_at', $postId);
+        $comments = $this->comment::findAll('updated_at', $postId);
         if ($request->isPost()) {
             $comment->loadData($request->getBody());
             if ($comment->validate() && $comment->save(['post_id' => $postId])) {
                 Application::$app->session->setFlash(
                     'success',
-                    'The comment will be publish when approved by an administrator');
+                    'The comment will be publish when approved by an administrator'
+                );
                 $response->redirect("/post?id=$postId");
             }
             return $this->render('blog/post', [
@@ -73,7 +82,7 @@ class BlogController extends Controller
             'comments' => $comments
         ]);
     }
-
+    
     public function addPost(Request $request, Response $response)
     {
         $this->layout = 'blog';
@@ -83,7 +92,8 @@ class BlogController extends Controller
             if ($post->validate() && $post->save()) {
                 Application::$app->session->setFlash(
                     'success',
-                    'The post has been published successfully');
+                    'The post has been published successfully'
+                );
                 Application::$app->response->redirect('/');
             }
             return $this->render('blog/add_post', [
@@ -94,11 +104,11 @@ class BlogController extends Controller
             'model' => $post
         ]);
     }
-
+    
     public function editPost(Request $request, Response $response)
     {
         $this->layout = 'blog';
-        $post = Post::findOne(['id' => $_GET['id']]);
+        $post = $this->post::findOne(['id' => $request->get['id']]);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
             $response->redirect('/admin');
@@ -107,7 +117,7 @@ class BlogController extends Controller
             $post->loadData($request->getBody());
             $format = 'Y-m-d H:i:s';
             $currentDate = date($format);
-            $post->updated_at = \DateTime::createFromFormat($format, $currentDate);
+            $post->updated_at = DateTime::createFromFormat($format, $currentDate);
             $post->updated_at = $post->updated_at->format($format);
             if ($post->update()) {
                 Application::$app->session->setFlash('success', 'The post has been successfully updated');
@@ -121,10 +131,10 @@ class BlogController extends Controller
             'model' => $post
         ]);
     }
-
+    
     public function deletePost(Request $request, Response $response)
     {
-        $post = Post::findOne(['id' => $_GET['id']]);
+        $post = $this->post::findOne(['id' => $request->get['id']]);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
             $response->redirect('/admin');
@@ -134,10 +144,10 @@ class BlogController extends Controller
             $response->redirect('/admin');
         }
     }
-
+    
     public function validateComment(Request $request, Response $response)
     {
-        $comment = Comment::findOne(['id' => $_GET['id']]);
+        $comment = $this->comment::findOne(['id' => $request->get['id']]);
         if (!App::isEditor()) {
             throw new ForbiddenException();
         }
@@ -151,11 +161,11 @@ class BlogController extends Controller
             $response->redirect("/post?id=$postId");
         }
     }
-
+    
     public function editComment(Request $request, Response $response)
     {
         $this->layout = 'blog';
-        $comment = Comment::findOne(['id' => $_GET['id']]);
+        $comment = $this->comment::findOne(['id' => $request->get['id']]);
         if (!$comment) {
             Application::$app->session->setFlash('error', 'Not comment found with this id');
             return $response->redirect('/');
@@ -167,16 +177,19 @@ class BlogController extends Controller
         if ($currentUser->id != $comment->user_id) {
             throw new ForbiddenException();
         }
-
+        
         if ($request->isPost()) {
             $comment->loadData($request->getBody());
             $format = 'Y-m-d H:i:s';
             $currentDate = date($format);
-            $comment->updated_at = \DateTime::createFromFormat($format, $currentDate);
+            $comment->updated_at = DateTime::createFromFormat($format, $currentDate);
             $comment->updated_at = $comment->updated_at->format($format);
             $comment->validated = 0;
             if ($comment->update()) {
-                Application::$app->session->setFlash('success', 'The comment has been successfully updated and will be validated by an administrator');
+                Application::$app->session->setFlash(
+                    'success',
+                    'The comment has been successfully updated and will be validated by an administrator'
+                );
                 $postId = $comment->post_id;
                 $response->redirect("/post?id=$postId");
             }
@@ -188,10 +201,10 @@ class BlogController extends Controller
             'model' => $comment
         ]);
     }
-
+    
     public function deleteComment(Request $request, Response $response)
     {
-        $comment = Comment::findOne(['id' => $_GET['id']]);
+        $comment = $this->comment::findOne(['id' => $request->get['id']]);
         $currentUser = App::$app->user;
         if (!$currentUser) {
             throw new ForbiddenException();

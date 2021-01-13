@@ -79,15 +79,18 @@ class AdminController extends Controller
     public function editUser(Request $request, Response $response)
     {
         $this->layout = 'admin';
-        $userId = isset($_GET['id']) ?? null;
+        if (isset($request->get['id'])) {
+            $userId = $request->get['id'];
+        }
         $user = $this->user::findOne(['id' => $userId]);
-        $userType = $this->userType($user);
-        $userStatus = $this->userStatus($user);
-        // changing userType and userStatus int into string for display
         if (!$user) {
             Application::$app->session->setFlash('error', 'No user with this id exists');
             $response->redirect('/admin');
         }
+        $userType = $this->userType($user);
+        $userStatus = $this->userStatus($user);
+        // changing userType and userStatus int into string for display
+        
         if ($request->isPost()) {
             $user->loadData($request->getBody());
             if ($user->update()) {
@@ -109,7 +112,10 @@ class AdminController extends Controller
     
     public function deleteUser(Response $response)
     {
-        $userId = isset($_GET['id']) ?? null;
+        $userId = null;
+        if (isset($request->get['id'])) {
+            $userId = $request->get['id'];
+        }
         $user = $this->user::findOne(['id' => $userId]);
         if (!$user) {
             Application::$app->session->setFlash('error', 'No user with this id exists in the database');
@@ -128,7 +134,7 @@ class AdminController extends Controller
         }
     }
     
-    private function userType($user): string
+    private function userType(User $user): string
     {
         $userType = '';
         switch ($user->type) {
@@ -145,7 +151,7 @@ class AdminController extends Controller
         return $userType;
     }
     
-    private function userStatus($user): string
+    private function userStatus(User $user): string
     {
         $userStatus = '';
         switch ($user->status) {
