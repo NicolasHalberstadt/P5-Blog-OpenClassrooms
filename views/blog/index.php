@@ -36,7 +36,7 @@ $this->title = 'Blog'
                         </p>
 
                         <div class="social">
-                            <a href="post?id=<?= $post['id'] ?>">
+                            <a href="post?id=<?= $this->clean($post['id']) ?>">
                                 <i class="fab fa-readme"></i>
                             </a>
                             <?php if (App::isEditor()) : ?>

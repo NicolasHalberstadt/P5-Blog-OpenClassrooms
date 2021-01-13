@@ -16,7 +16,7 @@ use nicolashalberstadt\phpmvc\form\Form;
 $this->title = 'Admin panel - Edit user';
 ?>
 <div class="form-container">
-    <h3 class="text-center">Edit <?= $model->getDisplayName() ?>'s account</h3>
+    <h3 class="text-center">Edit <?= $this->clean($model->getDisplayName()) ?>'s account</h3>
     <div class="form">
         <?php $form = nicolashalberstadt\phpmvc\form\Form::begin('', 'post') ?>
         <div class="row">
@@ -32,7 +32,7 @@ $this->title = 'Admin panel - Edit user';
         <?= new UserStatusSelectInputField($model, 'status'); ?>
         <button type="submit" class="btn btn-primary">Save</button>
         <a onClick="javascript: return confirm('Please confirm user deletion');"
-           href="/user/delete?id=<?= $model->id ?>"
+           href="/user/delete?id=<?= $this->clean($model->id) ?>"
            class="btn btn-danger">Delete user</a>
         <?php Form::end() ?>
 

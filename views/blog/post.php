@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 30/12/2020 
+/* User: nicolashalberstadt
+* Date: 30/12/2020
 * Time: 16:50
 */
 
@@ -18,18 +18,18 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
 ?>
 <div class="post-container">
     <div class="post">
-        <h3 class="post-title text-center"><?= $post->title ?></h3>
-        <h4 class="post-chapo text-center"><?= $post->chapo ?></h4>
-        <p class="post-content"><?= $post->content ?></p>
+        <h3 class="post-title text-center"><?= $this->clean($post->title) ?></h3>
+        <h4 class="post-chapo text-center"><?= $this->clean($post->chapo) ?></h4>
+        <p class="post-content"><?= $this->clean($post->content) ?></p>
         <p class="small-text">Written the
             <?php $t = strtotime($post->created_at); ?>
-            <?= date('F jS Y', $t); ?>
+            <?= $this->clean(date('F jS Y', $t)); ?>
             by
-            <?= User::findOne(['id' => $post->user_id])->getDisplayName() ?>
+            <?= $this->clean(User::findOne(['id' => $post->user_id])->getDisplayName()) ?>
         </p>
         
         <?php if (App::isEditor()) : ?>
-            <a class="btn btn-info" href="/post/edit?id=<?= $post->id ?>">Edit Post</a>
+            <a class="btn btn-info" href="/post/edit?id=<?= $this->clean($post->id) ?>">Edit Post</a>
         <?php endif; ?>
     </div>
     <!--Comment section -->
@@ -37,7 +37,7 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
     <div class="comments-form-container">
         <div class="form-container">
             <h3 class="text-center">Comments section</h3>
-            <?php if (App::isGuest()): ?>
+            <?php if (App::isGuest()) : ?>
                 <p class="text-center">Note : You have to be <a href="/login">logged in</a> to be able to post a comment
                 </p>
             <?php else : ?>
@@ -60,23 +60,23 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                     $commentsList[] = $comment;
                     ?>
                     <div class="comment">
-                        <p><?= $comment['content'] ?></p>
+                        <p><?= $this->clean($comment['content']) ?></p>
                         <p>
                             <small class="text-muted">By
-                                <?= User::findOne(['id' => $comment['user_id']])->getDisplayName(); ?>
+                                <?= $this->clean(User::findOne(['id' => $comment['user_id']])->getDisplayName()); ?>
                             </small>
                         </p>
                         <?php if (App::$app->user) : ?>
                             <div class="item-options-btn edit-delete">
                                 <?php if (App::$app->user->id === $comment['user_id']) : ?>
                                     <a class="comment-edit option-edit btn btn-primary"
-                                       href="/comment/edit?id=<?= $comment['id'] ?>">Edit my comment
+                                       href="/comment/edit?id=<?= $this->clean($comment['id']) ?>">Edit my comment
                                     </a>
                                 <?php endif; ?>
                                 <?php if (App::$app->user->id === $comment['user_id'] || App::isEditor()) : ?>
                                     <a class="option-delete btn btn-danger"
                                        onClick="javascript: return confirm('Please confirm deletion');"
-                                       href="/comment/delete?id=<?= $comment['id'] ?>">Delete
+                                       href="/comment/delete?id=<?= $this->clean($comment['id']) ?>">Delete
                                     </a>
                                 <?php endif ?>
                             </div>
@@ -84,17 +84,17 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                     </div>
                 <?php elseif ($comment['validated'] != 1 && App::isEditor()) : ?>
                     <div class="comment">
-                        <p><?= $comment['content'] ?> </p>
+                        <p><?= $this->clean($comment['content']) ?> </p>
                         <p><small class="text-muted">By
-                                <?= User::findOne(['id' => $comment['user_id']])->getDisplayName(); ?>
+                                <?= $this->clean(User::findOne(['id' => $comment['user_id']])->getDisplayName()); ?>
                             </small></p>
                         <div class="item-options-btn">
                             <a class="comment-validate option-validate btn btn-primary"
-                               href="/comment/validate?id=<?= $comment['id'] ?>">Validate
+                               href="/comment/validate?id=<?= $this->clean($comment['id']) ?>">Validate
                             </a>
                             <a class="option-delete btn btn-danger"
                                onClick="javascript: return confirm('Please confirm deletion');"
-                               href="/comment/delete?id=<?= $comment['id'] ?>">Delete
+                               href="/comment/delete?id=<?= $this->clean($comment['id']) ?>">Delete
                             </a>
                         </div>
                     </div>

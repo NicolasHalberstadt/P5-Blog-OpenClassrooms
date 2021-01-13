@@ -15,7 +15,7 @@ $error = str_split($string, 1);
     <div class="error-code">
         <div class="err"><?= $this->clean($error[0]); ?></div>
         <i class="far fa-question-circle fa-spin"></i>
-        <div class="err2"><?= $error[2] ?></div>
+        <div class="err2"><?= $this->clean($error[2]) ?></div>
     </div>
     <div class="error-code-mobile err">
         <p><?= $exception->getCode() ?></p>
