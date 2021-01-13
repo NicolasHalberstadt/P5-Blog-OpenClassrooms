@@ -126,7 +126,10 @@ use nicolashalberstadt\phpmvc\Application;
                 welcome to the admin panel</p>
         </div>
     </header>
-    <?php $currentPage = $_SERVER['REQUEST_URI']; ?>
+    <?php
+    if (isset($_SERVER['REQUEST_URI'])) {
+        $currentPage = $_SERVER['REQUEST_URI'];
+    } ?>
     <div class="admin">
         <nav class="admin-nav">
             <?php if (App::isAdmin()) :
