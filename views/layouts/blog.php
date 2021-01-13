@@ -1,6 +1,6 @@
 <?php
 /* User: nicolashalberstadt
-* Date: 14/12/2020 
+* Date: 14/12/2020
 * Time: 10:25
 */
 
@@ -30,20 +30,20 @@ use nicolashalberstadt\phpmvc\Application;
     <link rel="icon" href="/assets/img/favicon.ico">
 
 
-    <title><?= $this->title ?> | Nicolas Halberstadt - Symfony/PHP web developer</title>
+    <title><?= $this->clean($this->title) ?> | Nicolas Halberstadt - Symfony/PHP web developer</title>
 </head>
 <body>
 <div class="alert-container container fixed-bottom">
-    <?php if (Application::$app->session->getFlash('error')): ?>
+    <?php if (Application::$app->session->getFlash('error')) : ?>
         <div class="alert alert-danger alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?php echo Application::$app->session->getFlash('error') ?>
+            <?= $this->clean(Application::$app->session->getFlash('error')) ?>
         </div>
     <?php endif; ?>
-    <?php if (Application::$app->session->getFlash('success')): ?>
+    <?php if (Application::$app->session->getFlash('success')) : ?>
         <div class="alert alert-success alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?php echo Application::$app->session->getFlash('success') ?>
+            <?= $this->clean(Application::$app->session->getFlash('success')) ?>
         </div>
     <?php endif; ?>
 </div>
@@ -52,7 +52,8 @@ use nicolashalberstadt\phpmvc\Application;
         <a class="navbar-brand" href="/">
             <img src="/assets/img/profilepic.jpg" alt="">
         </a>
-        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
+        <button class="navbar-toggler navbar-toggler-right text-uppercase
+        font-weight-bold bg-primary text-white rounded"
                 type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -60,7 +61,7 @@ use nicolashalberstadt\phpmvc\Application;
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <?php if (App::isEditor()): ?>
+                <?php if (App::isEditor()) : ?>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                            href="/post/add">Add a post
@@ -86,7 +87,7 @@ use nicolashalberstadt\phpmvc\Application;
                         <i class="fas fa-envelope-open-text"></i>
                     </a>
                 </li>
-                <?php if (Application::isGuest()): ?>
+                <?php if (Application::isGuest()) : ?>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                            href="/login">Login</a>
@@ -95,7 +96,7 @@ use nicolashalberstadt\phpmvc\Application;
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                            href="/register">Register</a>
                     </li>
-                <?php else: ?>
+                <?php else : ?>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                            href="/logout">Logout
@@ -111,8 +112,6 @@ use nicolashalberstadt\phpmvc\Application;
 <div class="container">
     <header class="masthead bg-primary text-white text-center">
         <div class="d-flex align-items-center flex-column">
-            <!-- Masthead Avatar Image-->
-            <!--<img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt=""/>-->
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">Blog posts</h1>
             <!-- Icon Divider-->
@@ -179,10 +178,5 @@ use nicolashalberstadt\phpmvc\Application;
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
-<!-- Option 2: jQuery, Popper.js, and Bootstrap JS
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
--->
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 06/01/2021 
+/* User: nicolashalberstadt
+* Date: 06/01/2021
 * Time: 19:05
 */
 
@@ -20,6 +20,8 @@ use nicolashalberstadt\phpmvc\Model;
 class PostUserSelectInputField extends BaseField
 {
 
+    private User $user;
+    
     /**
      * Field constructor.
      * @param Model $model
@@ -28,17 +30,18 @@ class PostUserSelectInputField extends BaseField
     public function __construct(Model $model, string $attribute)
     {
         parent::__construct($model, $attribute);
+        $this->user = new User();
     }
 
     public function renderInput(): string
     {
-        $author = User::findOne(['id' => $this->model->{$this->attribute}]);
+        $author = $this->user::findOne(['id' => $this->model->{$this->attribute}]);
         if (!$author) {
-            $author = User::findOne(['id' => App::$app->user->id]);
+            $author = $this->user::findOne(['id' => App::$app->user->id]);
         }
         $authorId = $author->id;
         $authorName = $author->getDisplayName();
-        $dbUsers = User::findAll();
+        $dbUsers = $this->user::findAll();
         $users = [];
         $options = [];
         // remove post's author from users
@@ -49,7 +52,7 @@ class PostUserSelectInputField extends BaseField
         }
         // transform user array to object
         foreach ($users as $user) {
-            $user = User::findOne(['id' => $user['id']]);
+            $user = $this->user::findOne(['id' => $user['id']]);
             $userName = $user->getDisplayName();
             $options[] = '<option value="' . $user->id . '">' . $user->id . ': ' . $userName . '</option>';
         }

@@ -19,7 +19,14 @@ class LoginForm extends Model
 {
     public string $email = '';
     public string $password = '';
-
+    
+    private User $user;
+    
+    public function __construct()
+    {
+        $this->user = new User();
+    }
+    
     public function rules(): array
     {
         return [
@@ -27,7 +34,7 @@ class LoginForm extends Model
             'password' => [self::RULE_REQUIRED]
         ];
     }
-
+    
     public function labels(): array
     {
         return [
@@ -35,23 +42,27 @@ class LoginForm extends Model
             'password' => 'Your password'
         ];
     }
-
+    
     public function login()
     {
-        $user = User::findOne(['email' => $this->email]);
+        $user = $this->user::findOne(['email' => $this->email]);
         if (!$user || $user->status === 2) {
             $this->addError('email', 'User does not exist with this email address');
             return false;
         }
-        if($user->status === 0) {
-            $this->addError('email', 'The user with this email has not yet been approved, please wait until an administrator activate your account.');
+        if ($user->status === 0) {
+            $this->addError(
+                'email',
+                'The user with this email has not yet been approved,
+                please wait until an administrator activate your account.'
+            );
             return false;
         }
         if (!password_verify($this->password, $user->password)) {
             $this->addError('password', 'Password is incorrect');
             return false;
         }
-
+        
         return Application::$app->login($user);
     }
 }

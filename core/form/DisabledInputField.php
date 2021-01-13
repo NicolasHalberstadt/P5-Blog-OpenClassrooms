@@ -43,7 +43,8 @@ class DisabledInputField extends BaseField
 
     public function renderInput(): string
     {
-        return sprintf(' <input type="%s" name="%s" value="%s" class="form-control%s" disabled>',
+        return sprintf(
+            ' <input type="%s" name="%s" value="%s" class="form-control%s" disabled>',
             $this->type,
             $this->attribute,
             $this->model->{$this->attribute},

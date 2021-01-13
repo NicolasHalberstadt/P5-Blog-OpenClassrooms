@@ -47,15 +47,15 @@ $this->title = 'Home'
         <?php $form = Form::begin('', 'post') ?>
         <div class="row">
             <div class="col">
-                <?php echo $form->field($model, 'firstname') ?>
+                <?=  $form->field($model, 'firstname') ?>
             </div>
             <div class="col">
-                <?php echo $form->field($model, 'lastname') ?>
+                <?=  $form->field($model, 'lastname') ?>
             </div>
         </div>
-        <?php echo $form->field($model, 'email'); ?>
-        <?php echo $form->field($model, 'subject'); ?>
-        <?php echo new TextareaField($model, 'body') ?>
+        <?=  $form->field($model, 'email'); ?>
+        <?=  $form->field($model, 'subject'); ?>
+        <?=  new TextareaField($model, 'body') ?>
 
         <button type="submit" class="btn btn-primary">Submit</button>
         <?php $form = Form::end(); ?>

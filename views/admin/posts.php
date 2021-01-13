@@ -1,12 +1,13 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 07/01/2021 
+/* User: nicolashalberstadt
+* Date: 07/01/2021
 * Time: 19:47
 */
 
 /**@var $posts \app\models\Post */
 
 use app\models\User;
+
 $this->title = 'Admin panel - Posts';
 ?>
 <!-- Posts table -->
@@ -25,28 +26,28 @@ $this->title = 'Admin panel - Posts';
         <tbody>
         <?php foreach ($posts as $post) : ?>
             <tr>
-                <th scope="row"><?= $post['id'] ?></th>
-                <td><?= $post['title'] ?></td>
-                <td><?php $t = strtotime($post['created_at']);
-                    echo date('d-m-Y', $t); ?></td>
+                <th scope="row"><?= $this->clean($post['id']) ?></th>
+                <td><?= $this->clean($post['title']) ?></td>
+                <td><?php $t = strtotime($post['created_at']); ?>
+                    <?= $this->clean(date('d-m-Y', $t)); ?></td>
                 <td><?php
-                    if ($post['updated_at'] !== null) {
-                        $t = strtotime($post['updated_at']);
-                        echo date('d-m-Y', $t);
-                    } else {
-                        echo 'Undefined';
-                    } ?>
+                if ($post['updated_at'] !== null) :
+                    $t = strtotime($post['updated_at']); ?>
+                    <?= $this->clean(date('d-m-Y', $t)); ?>
+                <?php else : ?>
+                    <?= 'Undefined' ?>
+                <?php endif; ?>
                 </td>
-                <td><?= User::findOne(['id' => $post['user_id']])->getDisplayName() ?></td>
+                <td><?= $this->clean(User::findOne(['id' => $post['user_id']])->getDisplayName()) ?></td>
 
                 <td>
                     <div class="item-options-btn">
                         <a class="option-edit btn btn-primary"
-                           href="/post/edit?id=<?= $post['id'] ?>">Edit
+                           href="/post/edit?id=<?= $this->clean($post['id']) ?>">Edit
                         </a>
                         <a class="option-delete btn btn-danger"
                            onClick="javascript: return confirm('Please confirm deletion');"
-                           href="/post/delete?id=<?= $post['id'] ?>">Delete
+                           href="/post/delete?id=<?= $this->clean($post['id']) ?>">Delete
                         </a>
                     </div>
                 </td>

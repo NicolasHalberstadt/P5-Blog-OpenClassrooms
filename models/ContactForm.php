@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 20/12/2020 
+/* User: nicolashalberstadt
+* Date: 20/12/2020
 * Time: 19:01
 */
 
@@ -24,7 +24,7 @@ class ContactForm extends Model
     public string $subject = '';
     public string $email = '';
     public string $body = '';
-
+    
     public function rules(): array
     {
         return [
@@ -35,7 +35,7 @@ class ContactForm extends Model
             'body' => [self::RULE_REQUIRED],
         ];
     }
-
+    
     public function labels(): array
     {
         return [
@@ -46,7 +46,7 @@ class ContactForm extends Model
             'body' => 'Enter your message',
         ];
     }
-
+    
     public function send(Request $request): bool
     {
         // ContactForm data :
@@ -56,7 +56,7 @@ class ContactForm extends Model
         $contactFormAddress = $body['email'];
         $contactFormBody = $body['body'];
         $contactFormSubject = $body['subject'];
-
+        
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->SMTPDebug = SMTP::DEBUG_OFF;
@@ -66,20 +66,22 @@ class ContactForm extends Model
         $mail->SMTPAuth = true;
         $mail->Username = 'halberstadtnicolas@gmail.com';
         $mail->Password = 'mqfhmazuqfjygsip';
-
+        
         $mail->addReplyTo($contactFormAddress, 'Contact form');
         $mail->setFrom($contactFormAddress, 'Contact form');
         $mail->addAddress('halberstadtnicolas@gmail.com', 'Nicolas Halberstadt');
-
+        
         $mail->isHTML(true);
         $mail->Subject = $contactFormSubject;
-
-        $mailBody = "Nouveau message de la part de $contactFormFirstname $contactFormLastname - $contactFormAddress. <br>Message : $contactFormBody";
+        
+        $mailBody = "Nouveau message de la part de
+$contactFormFirstname $contactFormLastname - $contactFormAddress.
+<br>Message : $contactFormBody";
         $mail->Body = $mailBody;
         $mail->AltBody = $contactFormBody;
-
+        
         if (!$mail->send()) {
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
+            echo htmlspecialchars('Mailer Error: ' . $mail->ErrorInfo);
         } else {
             return true;
         }
