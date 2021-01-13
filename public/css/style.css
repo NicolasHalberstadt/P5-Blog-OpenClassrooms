@@ -1,5 +1,5 @@
 a:hover {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 hr {
@@ -27,10 +27,6 @@ hr {
   margin-bottom: 1em;
 }
 
-.admin .form-container {
-  width: calc(100% - 15%);
-}
-
 .admin > div,
 .admin-nav {
   margin-top: 18px;
@@ -46,7 +42,6 @@ hr {
 .admin-nav .active {
   background-color: #eef4f7;
 }
-
 
 .latest-container {
   display: flex;
@@ -78,7 +73,7 @@ hr {
 }
 
 .edit-delete {
-  width: 15% !important;
+  width: 26%;
 }
 
 .latest-users-container {
@@ -169,7 +164,7 @@ hr {
   }
 
   .admin-nav {
-    width: 50% !important;
+    width: 50%;
     margin: auto;
   }
 
@@ -195,18 +190,18 @@ hr {
   }
 
   .latest-container > div {
-    width: 95% !important;
+    width: 100%;
     text-align: center;
     margin: 1em auto auto;
   }
 
   .latest-title {
     text-align: center;
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
   }
 
   .latest-item {
-    padding-left: 0 !important;
+    padding-left: 0;
     border-bottom: dotted 1px darkgrey;
   }
 
@@ -219,13 +214,12 @@ hr {
   }
 
   .invalid-comments {
-    width: 95%;
-    margin: auto;
+    margin-top: 1em !important;
   }
 }
 
 .table {
-  padding-top: 1em !important;
+  padding-top: 1em;
 }
 
 .table thead {
@@ -262,6 +256,11 @@ hr {
   background-color: #eef4f7;
   border-radius: 15px;
   margin-top: 1em;
+}
+
+
+.admin .form-container {
+  width: calc(100% - 15%);
 }
 
 .comments-form-container > .form-container {
@@ -306,7 +305,7 @@ hr {
     padding: 1em;
   }
 
-  /*Footer*/
+  /* Footer */
   footer .row {
     margin: 0;
   }
@@ -373,13 +372,9 @@ hr {
   padding-bottom: 4em;
 }
 
-.post h4:first-letter,
-.post p:first-letter {
+.post h4::first-letter,
+.post p::first-letter {
   text-transform: capitalize;
-}
-
-.post p:first-child {
-  font-size: medium;
 }
 
 .post .small-text {
@@ -446,7 +441,6 @@ hr {
   background-color: #eef4f7;
   margin: auto;
   height: 600px;
-
   position: relative;
 }
 
@@ -491,9 +485,6 @@ hr {
   margin-top: 1em;
 }
 
-a:hover {
-  text-decoration: underline;
-}
 
 @media (max-width: 900px) {
   .error-code {
@@ -525,7 +516,10 @@ a:hover {
   margin-bottom: 40px;
   padding-top: 40px;
   color: inherit;
+}
 
+.post p:first-child {
+  font-size: medium;
 }
 
 @media (max-width: 767px) {
@@ -560,7 +554,7 @@ a:hover {
   background-color: #fff;
   margin-bottom: 30px;
   border-radius: 15px;
-  height: calc(100% - 30px) !important;
+  height: calc(100% - 30px);
 }
 
 .team-boxed .item .name {
@@ -609,4 +603,3 @@ a:hover {
 .team-boxed .social a:hover {
   opacity: 1;
 }
-
