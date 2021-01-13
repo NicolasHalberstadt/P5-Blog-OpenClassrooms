@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 22/12/2020 
+/* User: nicolashalberstadt
+* Date: 22/12/2020
 * Time: 11:49
 */
 

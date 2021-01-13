@@ -25,15 +25,25 @@ use app\models\ContactForm;
  */
 class SiteController extends Controller
 {
+    private Post $post;
+    
+    public function __construct()
+    {
+        $this->post = new Post();
+    }
+    
     // handling contact form on the home page
     public function home(Request $request, Response $response)
     {
-        $posts = Post::findAll('updated_at');
+        $posts = $this->post::findAll('updated_at');
         $contact = new ContactForm();
         if ($request->isPost()) {
             $contact->loadData($request->getBody());
             if ($contact->validate() && $contact->send($request)) {
-                Application::$app->session->setFlash('success', 'Thanks for contacting me, I will get back to you soon');
+                Application::$app->session->setFlash(
+                    'success',
+                    'Thanks for contacting me, I will get back to you soon'
+                );
                 return $response->redirect('/');
             }
         }
