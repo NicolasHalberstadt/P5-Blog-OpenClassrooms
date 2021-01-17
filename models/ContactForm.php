@@ -82,8 +82,7 @@ $contactFormFirstname $contactFormLastname - $contactFormAddress.
         
         if (!$mail->send()) {
             echo htmlspecialchars('Mailer Error: ' . $mail->ErrorInfo);
-        } else {
-            return true;
         }
+        return true;
     }
 }
