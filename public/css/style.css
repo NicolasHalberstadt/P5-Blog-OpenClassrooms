@@ -47,6 +47,7 @@ hr {
   display: flex;
   justify-content: space-between;
   width: calc(100% - 15%);
+  min-height: 535px;
 }
 
 .latest-container > div {
@@ -231,6 +232,7 @@ hr {
   padding: 0 0 2em;
   width: calc(100% - 15%);
   max-height: 500px;
+  min-height: 150px;
 }
 
 .admin-table {
