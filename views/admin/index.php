@@ -73,6 +73,11 @@ $latestPostsClass = '';
     <div class="latest latest-posts-container <?= $this->clean($latestPostsClass) ?>">
         <h4 class="latest-title">Latest posts</h4>
         <div>
+            <?php if (empty($recentPosts)) : ?>
+                <div class="latest-item">
+                    <p>No posts have yet been written</p>
+                </div>
+            <?php endif; ?>
             <?php foreach ($recentPosts as $post) : ?>
                 <div class="latest-item">
                     <h5><?= $this->clean(User::findOne(['id' => $post['user_id']])->getDisplayName()) ?></h5>

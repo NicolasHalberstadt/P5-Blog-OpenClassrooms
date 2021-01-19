@@ -14,6 +14,11 @@ $this->title = 'Blog'
 <div class="team-boxed">
     <div class="container">
         <div class="row people">
+            <?php if (empty($posts)) : ?>
+                <div class="container">
+                    <h3>No posts have yet been written</h3>
+                </div>
+            <?php endif; ?>
             <?php foreach ($posts as $post) : ?>
                 <div class="col-md-4 col-lg-6 item">
                     <div class="box">
@@ -31,7 +36,7 @@ $this->title = 'Blog'
                             <?php else :
                                 $t = strtotime($post['created_at']); ?>
                                 Created on
-                            <?php endif;?>
+                            <?php endif; ?>
                             <?= $this->clean(date('F jS Y', $t)); ?>
                         </p>
 

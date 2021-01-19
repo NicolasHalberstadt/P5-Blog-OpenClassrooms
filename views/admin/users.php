@@ -47,19 +47,19 @@ $this->title = 'Admin panel - Users';
                 }
                 ?>
                 <tr>
-                    <th scope="row"><?php $this->clean($user['id']) ?></th>
-                    <td><?php $this->clean($user['firstname']) ?></td>
-                    <td><?php $this->clean($user['lastname']) ?></td>
-                    <td><?php $this->clean($userType) ?></td>
-                    <td><?php $this->clean($userStatus) ?></td>
+                    <th scope="row"><?= $this->clean($user['id']) ?></th>
+                    <td><?= $this->clean($user['firstname']) ?></td>
+                    <td><?= $this->clean($user['lastname']) ?></td>
+                    <td><?= $this->clean($userType) ?></td>
+                    <td><?= $this->clean($userStatus) ?></td>
                     <td>
                         <div class="item-options-btn">
                             <a class="option-edit btn btn-primary"
-                               href="/user/edit?id=<?php $this->clean($user['id']) ?>">Edit
+                               href="/user/edit?id=<?= $this->clean($user['id']) ?>">Edit
                             </a>
                             <a class="option-delete btn btn-danger"
                                onClick="javascript: return confirm('Please confirm deletion');"
-                               href="/user/delete?id=<?php $this->clean($user['id']) ?>">Delete
+                               href="/user/delete?id=<?= $this->clean($user['id']) ?>">Delete
                             </a>
                         </div>
                     </td>
