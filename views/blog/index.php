@@ -1,12 +1,13 @@
 <?php
-/* User: nicolashalberstadt 
+/* User: nicolashalberstadt
 * Date: 02/01/2021
 * Time: 19:34
 */
 
-/**@var $posts \app\models\Post */
+/**@var $posts Post */
 
 use app\core\App;
+use app\models\Post;
 
 $this->title = 'Blog'
 ?>
@@ -15,7 +16,7 @@ $this->title = 'Blog'
     <div class="container">
         <div class="row people">
             <?php if (empty($posts)) : ?>
-                <div class="container">
+                <div class="empty-posts">
                     <h3>No posts have yet been written</h3>
                 </div>
             <?php endif; ?>
