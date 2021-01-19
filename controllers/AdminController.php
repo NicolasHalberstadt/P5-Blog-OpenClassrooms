@@ -110,7 +110,7 @@ class AdminController extends Controller
         ]);
     }
     
-    public function deleteUser(Response $response)
+    public function deleteUser(Request $request, Response $response)
     {
         $userId = null;
         if (isset($request->get['id'])) {
