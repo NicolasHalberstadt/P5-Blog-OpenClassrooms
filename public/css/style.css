@@ -164,7 +164,7 @@ hr {
   }
 
   .admin-nav {
-    width: 50%;
+    width: 65%;
     margin: auto;
   }
 
@@ -352,7 +352,10 @@ hr {
   padding: 4em;
   background-color: #a2dbce;
 }
-
+.empty-posts {
+  margin: auto;
+  padding-left: 1em;
+}
 .post {
   max-width: 80%;
   margin: auto;
