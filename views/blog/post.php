@@ -18,6 +18,11 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
 ?>
 <div class="post-container">
     <div class="post">
+        <?php if (App::isEditor()) : ?>
+            <div id="post-edit-btn">
+                <a class="btn btn-info" href="/post/edit?id=<?= $this->clean($post->id) ?>">Edit Post</a>
+            </div>
+        <?php endif; ?>
         <h3 class="post-title text-center"><?= $this->clean($post->title) ?></h3>
         <h4 class="post-chapo text-center"><?= $this->clean($post->chapo) ?></h4>
         <p class="post-content"><?= $this->clean($post->content) ?></p>
@@ -27,10 +32,8 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
             by
             <?= $this->clean(User::findOne(['id' => $post->user_id])->getDisplayName()) ?>
         </p>
-        
-        <?php if (App::isEditor()) : ?>
-            <a class="btn btn-info" href="/post/edit?id=<?= $this->clean($post->id) ?>">Edit Post</a>
-        <?php endif; ?>
+
+
     </div>
     <!--Comment section -->
     <!-- Comment form -->
@@ -46,7 +49,9 @@ use nicolashalberstadt\phpmvc\form\TextareaField;
                 <div class="form">
                     <?php Form::begin('', 'post'); ?>
                     <?= new TextareaField($model, 'content') ?>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div id="post-comment-submit">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                     <?php Form::end(); ?>
                 </div>
             <?php endif; ?>

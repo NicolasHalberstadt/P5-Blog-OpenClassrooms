@@ -20,7 +20,15 @@ $this->title = 'Register';
         <?= $form->field($model, 'email') ?>
         <?= $form->field($model, 'password')->passwordField() ?>
         <?= $form->field($model, 'confirmPassword')->passwordField() ?>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="buttons">
+            <div class="cancel">
+                <button type="button" onclick="history.back(-1)" class="btn btn-outline-warning">Cancel</button>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        
         <?php Form::end() ?>
     </div>
 </div>

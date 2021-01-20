@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 30/12/2020 
+/* User: nicolashalberstadt
+* Date: 30/12/2020
 * Time: 16:42
 */
 ?>
@@ -17,9 +17,11 @@ $this->title = 'Edit comment';
     <h3 class="text-center">Edit comment</h3>
     <div class="form">
         <?php $form = Form::begin('', 'post') ?>
-        <?=  new TextareaField($model, 'content') ?>
-        <button type="submit" class="btn btn-primary">Save</button>
-
-        <?php \nicolashalberstadt\phpmvc\form\Form::end() ?>
+        <?= new TextareaField($model, 'content') ?>
+        <div class="buttons">
+            <button type="button" onclick="history.back(-1)" class="btn btn-outline-warning">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <?php Form::end() ?>
     </div>
 </div>

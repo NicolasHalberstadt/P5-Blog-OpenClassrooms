@@ -134,13 +134,13 @@ use nicolashalberstadt\phpmvc\Application;
         <nav class="admin-nav">
             <?php if (App::isAdmin()) :
                 $links = [
-                    'Admin' => '/admin',
+                    'Dashboard' => '/admin',
                     'Users' => '/admin/users',
                     'Posts' => '/admin/posts',
                 ];
             elseif (App::isEditor()) :
                 $links = [
-                    'Admin' => '/admin',
+                    'Dashboard' => '/admin',
                     'Posts' => '/admin/posts',
                 ];
             endif; ?>

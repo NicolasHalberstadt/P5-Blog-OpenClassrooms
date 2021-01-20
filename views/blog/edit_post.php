@@ -1,6 +1,6 @@
 <?php
-/* User: nicolashalberstadt 
-* Date: 30/12/2020 
+/* User: nicolashalberstadt
+* Date: 30/12/2020
 * Time: 16:42
 */
 ?>
@@ -18,13 +18,17 @@ $this->title = 'Edit post';
     <h3 class="text-center">Edit post</h3>
     <div class="form">
         <?php $form = Form::begin('', 'post') ?>
+        
+        <?= $form->field($model, 'title') ?>
+        <?= $form->field($model, 'chapo') ?>
+        <?= new TextareaField($model, 'content') ?>
+        <?= new PostUserSelectInputField($model, 'user_id') ?>
+        <div class="buttons">
 
-        <?=  $form->field($model, 'title') ?>
-        <?=  $form->field($model, 'chapo') ?>
-        <?=  new TextareaField($model, 'content') ?>
-        <?=  new PostUserSelectInputField($model, 'user_id') ?>
-        <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" onclick="history.back(-1)" class="btn btn-outline-warning">Cancel</button>
 
-        <?php \nicolashalberstadt\phpmvc\form\Form::end() ?>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <?php Form::end() ?>
     </div>
 </div>

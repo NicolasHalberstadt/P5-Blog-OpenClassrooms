@@ -21,9 +21,12 @@ $this->title = 'Add blog post';
         <?= $form->field($model, 'chapo') ?>
         <?= new TextareaField($model, 'content') ?>
         <?= new PostUserSelectInputField($model, 'user_id') ?>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        
+        <div class="buttons">
+            <div>
+                <button type="button" onclick="history.back(-1)" class="btn btn-outline-warning">Cancel</button>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
         <?php Form::end() ?>
     </div>
 </div>
