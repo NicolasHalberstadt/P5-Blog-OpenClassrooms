@@ -259,6 +259,10 @@ hr {
   margin-top: 1em;
 }
 
+.form-container .buttons {
+  display: flex;
+  justify-content: space-between;
+}
 
 .admin .form-container {
   width: calc(100% - 15%);
@@ -352,10 +356,12 @@ hr {
   padding: 4em;
   background-color: #a2dbce;
 }
+
 .empty-posts {
   margin: auto;
   padding-left: 1em;
 }
+
 .post {
   max-width: 80%;
   margin: auto;
@@ -367,11 +373,11 @@ hr {
   padding-bottom: 1em;
   font-size: xx-large;
   text-transform: uppercase;
-  color: #81918c;
+  color: #47515a;
 }
 
 .post h4 {
-  color: #47515a;
+  color: #81918c;
   font-size: larger;
   padding-bottom: 4em;
 }
@@ -390,6 +396,11 @@ hr {
   border-radius: 15px;
 }
 
+#post-comment-submit,
+#post-edit-btn {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .comments-container {
   background-color: #eef4f7;
