@@ -5,6 +5,8 @@ Bienvenue sur mon projet n°5 du parcours OpenClassrooms "Développeur d'applica
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0d2d01a1c64e4e4686d0bad75d9fe83f)](https://www.codacy.com/gh/NicolasHalberstadt/P5-Blog-OpenClassrooms/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NicolasHalberstadt/P5-Blog-OpenClassrooms&amp;utm_campaign=Badge_Grade)
 
+## Demo
+Le projet est consultable en ligne [ici](https://nicolashalberstadt.me).
 ## Diagrammes
 Les diagrammes (séquences, classe et d'utilisation) du projet peuvent être retrouvés [ici](https://github.com/NicolasHalberstadt/P5-Blog-OpenClassrooms/tree/master/Diagrammes).
 
