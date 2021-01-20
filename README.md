@@ -5,10 +5,10 @@ Bienvenue sur mon projet n°5 du parcours OpenClassrooms "Développeur d'applica
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0d2d01a1c64e4e4686d0bad75d9fe83f)](https://www.codacy.com/gh/NicolasHalberstadt/P5-Blog-OpenClassrooms/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NicolasHalberstadt/P5-Blog-OpenClassrooms&amp;utm_campaign=Badge_Grade)
 
-##Diagrammes
-Les diagrammes (séquences, classe et d'utilisation) du projet peuvent être retrouvés [ici](https://github.com/NicolasHalberstadt/P5-Blog-OpenClassrooms/Diagrammes).
+## Diagrammes
+Les diagrammes (séquences, classe et d'utilisation) du projet peuvent être retrouvés [ici](https://github.com/NicolasHalberstadt/P5-Blog-OpenClassrooms/tree/master/Diagrammes).
 
-##Installation :
+## Installation :
 - ***Étape 1 :*** Cloner le projet
 - ***Étape 2 :*** Exécuter la commande `composer intall` à la racine du projet
 - ***Étape 3 :*** Créer votre base de données 
