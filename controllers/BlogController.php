@@ -54,8 +54,8 @@ class BlogController extends Controller
     
     public function showPost(Request $request, Response $response)
     {
-        $this->layout = 'blog';
         $comment = new Comment();
+        $this->layout = 'blog';
         $post = $this->post::findOne(['id' => $request->get['id']]);
         if (!$post) {
             Application::$app->session->setFlash('error', 'No post with this id exists in the database');
@@ -65,6 +65,7 @@ class BlogController extends Controller
         $comments = $this->comment::findAll('updated_at', $postId);
         if ($request->isPost()) {
             $comment->loadData($request->getBody());
+            $comment->content = nl2br($request->post['content']);
             if ($comment->validate() && $comment->save(['post_id' => $postId])) {
                 Application::$app->session->setFlash(
                     'success',
@@ -91,6 +92,7 @@ class BlogController extends Controller
         $post = new Post();
         if ($request->isPost()) {
             $post->loadData($request->getBody());
+            $post->content = nl2br($request->post['content']);
             if ($post->validate() && $post->save()) {
                 Application::$app->session->setFlash(
                     'success',
@@ -117,6 +119,7 @@ class BlogController extends Controller
         }
         if ($request->isPost()) {
             $post->loadData($request->getBody());
+            $post->content = nl2br($request->post['content']);
             $format = 'Y-m-d H:i:s';
             $currentDate = date($format);
             $post->updated_at = $this->datetime::createFromFormat($format, $currentDate);
@@ -182,6 +185,7 @@ class BlogController extends Controller
         
         if ($request->isPost()) {
             $comment->loadData($request->getBody());
+            $comment->content = nl2br($request->post['content']);
             $format = 'Y-m-d H:i:s';
             $currentDate = date($format);
             $comment->updated_at = $this->datetime::createFromFormat($format, $currentDate);
